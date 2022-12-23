@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Реєстрація</title>
+	<link rel="stylesheet" th:href="@{/css/login_registration.css}">
+	<link rel="icon" th:href="@{/img/logo.png}" type="image/icon type">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<div class="container">
+		<div class="forms">
+			<div class="form-content">
+				<div class="login-form">
+					<div class="title">Реєстрація</div>
+					<form method="post">
+						<div class="input-boxes">
+							<div class="input-box">
+								<i class="fas fa-pencil-alt"></i>
+								<input type="text" placeholder="Введіть ім'я" th:name="firstName" th:value="${user.firstName}">
+							</div>
+							<div class="input-box">
+								<i class="fas fa-pencil-alt"></i>
+								<input type="text" placeholder="Введіть прізвище" th:name="lastName" th:value="${user.lastName}">
+							</div>
+							<div class="input-box">
+								<i class="fas fa-envelope"></i>
+								<input type="text" placeholder="Введіть пошту" th:name="email" th:value="${user.email}">
+							</div>
+							<div class="input-box">
+								<i class="fas fa-lock"></i>
+								<input type="password" placeholder="Введіть пароль" th:name="password" th:value="${user.password}">
+							</div>
+							<div class="input-box">
+								<i class="fa fa-calendar"></i>
+								<input type="text" placeholder="Введіть дату народження" th:name="birthDate" th:value="${user.birthDate}">
+							</div>
+							<div class="input-box">
+								<i class="	fas fa-pencil-alt"></i>
+								<input type="text" placeholder="Введіть підрозділ" th:name="department" th:value="${user.department}">
+							</div>
+							<div class="button input-box">
+								<input type="submit" value="Зареєструватися">
+							</div>
+							<div class="text sign-in-text"><label><a href="/login">Увійти</a></label></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

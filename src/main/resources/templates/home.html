@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=5.0;">
+	<title>ГУ ДПС у Л/о управління персоналу</title>
+	<link rel="stylesheet" th:href="@{/css/home.css}">
+	<link rel="icon" th:href="@{/img/logo.png}" type="image/icon type">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+	<div class="container">
+		<header>
+			<a href="/home">
+				<img th:src="@{/img/logo.png}" class="Logo" alt="Логотип ДПС"></a>
+			<h1>Головне управління ДПС у Львівській області<br>Управління персоналу</h1>
+			<nav>
+				<ul>
+					<li class="nav_option"><a href="/">Вступ та проходження державної служби</a></li>
+					<li class="nav_option"><a href="/">Ключові показники <br>та
+							оцінювання</a></li>
+					<li class="nav_option"><a href="/">Підвищення<br> кваліфікаціїї</a></li>
+					<li class="nav_option"><a href="/">Відпустки</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<aside class="sidebar">
+			<div class="login_block">
+				<a href="/login">Вхід</a>
+				<i>|</i>
+				<a href="/registration"> Реєстрація</a>
+			</div>
+			<div class="law">
+				<h3>Поточне законодавство</h3>
+				<ul>
+					<li><a href="https://zakon.rada.gov.ua/laws/show/889-19#Text" target="_blank">Закон України "Про
+							державну службу"</a></li>
+					<li><a href="https://zakon.rada.gov.ua/laws/show/504/96-%D0%B2%D1%80#Text" target="_blank">Закон
+							України "Про відпустки"</a></li>
+					<li><a href="https://zakon.rada.gov.ua/laws/show/1700-18#Text" target="_blank">Закон України "Про
+							запобігання<br> корупції"</a></li>
+					<li><a href="https://zakon.rada.gov.ua/laws/show/322-08#Text" target="_blank">Кодекс Законів про
+							працю України</a></li>
+					<li><a href="https://zakon.rada.gov.ua/laws/show/322-08#Text" target="_blank">Правила етичної
+							поведінки державного службовця</a>
+					</li>
+				</ul>
+			</div>
+			<div class="calendar_block">
+				<div class="look-calendar">
+					<table id="calendar">
+						<thead>
+							<tr>
+								<td><b>‹</b>
+								<td colspan="5">
+								<td><b>›</b>
+							<tr class="dn">
+								<td>Пн</td>
+								<td>Вт</td>
+								<td>Ср</td>
+								<td>Чт</td>
+								<td>Пт</td>
+								<td>Сб</td>
+								<td>Нд</td>
+							</tr>
+							</td>
+						</thead>
+						<tbody>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td>1</td>
+							</tr>
+
+							<tr>
+								<td>2</td>
+								<td>3</td>
+								<td>4</td>
+								<td>5</td>
+								<td>6</td>
+								<td>7</td>
+								<td>8</td>
+							</tr>
+
+							<tr>
+								<td>9</td>
+								<td>10</td>
+								<td>11</td>
+								<td>12</td>
+								<td>13</td>
+								<td>14</td>
+								<td>15</td>
+							</tr>
+
+							<tr>
+								<td>16</td>
+								<td>17</td>
+								<td>18</td>
+								<td>19</td>
+								<td>20</td>
+								<td>21</td>
+								<td>22</td>
+							</tr>
+
+							<tr>
+								<td>23</td>
+								<td>24</td>
+								<td>25</td>
+								<td>26</td>
+								<td>27</td>
+								<td>28</td>
+								<td>29</td>
+							</tr>
+
+							<tr>
+								<td>30</td>
+								<td>31</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<script th:src="@{/js/scripts.js}"></script>
+			<div class="law">
+				<div class="qr_frame">
+					<a href="https://www.facebook.com/profile.php?id=100072744106926" target="_blank"><img class="qr"
+							th:src="@{/img/qr-code.png}" alt="QR код-посилання"></a>
+					<p>Кадри інформують</p> <img class="hand" th:src="@{/img/hand.png}" alt="Курсор">
+				</div>
+			</div>
+
+			<div class="useful">
+				<h3>Корисні посилання</h3>
+				<h5>ДПС у соц. мережах</h5>
+				<div class="social">
+					<a href="https://www.facebook.com/TaxUkraine" class="fa fa-facebook" target="_blank"></a>
+					<a href="https://www.youtube.com/c/TaxUkraine" class="fa fa-youtube" target="_blank"></a>
+					<a href="https://t.me/tax_gov_ua" class="fa fa-telegram" target="_blank"> </a>
+				</div>
+				<ul>
+					<li><a href="https://tax.gov.ua/" target="_blank" class="main_site_link">Сайт ДПС України</a>
+					</li>
+					<li><a href="https://nads.gov.ua/" target="_blank" class="main_site_link">Сайт НАДС</a></li>
+					<li><a href="https://rds.mova.gov.ua/certificates/list/" target="_blank"
+							class="main_site_link">Mova.gov.ua</a></li>
+				</ul>
+			</div>
+		</aside>
+		<main class="main_content">
+			<h1 class="main_header">Актуальне</h1>
+
+			<div class="slider">
+				<div class="images">
+					<input type="radio" name="slide" id="img1" checked>
+					<input class="" type="radio" name="slide" id="img2">
+					<input class="" type="radio" name="slide" id="img3">
+
+
+					<img th:src="@{/img/img1.jpeg}" class="m1" alt="img1">
+					<img th:src="@{/img/img2.jpeg}" class="m2" alt="img2">
+					<img th:src="@{/img/img3.jpeg}" class="m3" alt="img3">
+
+				</div>
+				<div class="dots">
+					<label id="dot1" class="active" onclick="activate('dot1')" for="img1"></label>
+					<label id="dot2" class="" onclick="activate('dot2')" for="img2"></label>
+					<label id="dot3" class="" onclick="activate('dot3')" for="img3"></label>
+
+				</div>
+			</div>
+			<div class="news_panel">
+				<h5 id="news-title">До уваги працівників</h5>
+				<div class="news_content">
+					<p id="date">03.07.2022</p>
+					<p>Завершення моніторингу ключових показників на 2022 рік.</p>
+					<br>
+					<p id="date">05.07.2022</p>
+					<p>Моніторинг виконання індивідуальних програм на 2022 рік.</p>
+					<br>
+
+
+				</div>
+			</div>
+			<h5 id="Sub-head">Воєнний стан: Укази Президента України та Закони України</h5>
+			<div class="table-block">
+
+				<table class="info-table">
+					<thead>
+						<tr>
+							<th id="head">Указ</th>
+							<th id="head">Закон</th>
+							<th id="head">Дата початку воєнного стану</th>
+							<th id="head">Дата закінчення воєнного стану</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Указ Президента України "Про введення воєнного стану в Україні" <br><b>від
+									24.02.2022<br> №64/2022</b></td>
+							<td>Закон України "Про затвердження Указу Президента України Про введення воєнного стану в
+								Україні" <br><b>від 24.02.2022<br>№ 2102-IX</b></td>
+							<td>з 05 години 30 хвилин 24 лютого 2022 року строком на 30 діб</td>
+							<td><b>до 26 березня 2022 року</b></td>
+						</tr>
+						<tr>
+							<td id="middle">Указ Президента України "Про продовження строку дії воєнного стану в
+								Україні" <br><b>від 14.03.2022<br> №133/2022</b></td>
+							<td id="middle">Закон України "Про затвердження Указу Президента України Про продовження
+								строку дії воєнного стану в Україні" <br><b>від 15.03.2022<br>№ 2119-IX</b></td>
+							<td id="middle">з 05 години 30 хвилин 26 березня 2022 року строком на 30 діб</td>
+							<td id="middle"><b>до 25 квітня 2022 року</b></td>
+						</tr>
+						<tr>
+							<td>Указ Президента України "Про продовження строку дії воєнного стану в Україні" <br><b>від
+									18.04.2022<br> №259/2022</b></td>
+							<td>Закон України "Про затвердження Указу Президента України Про продовження строку дії
+								воєнного стану в Україні" <br><b>від 21.04.2022<br>№ 2212-IX</b></td>
+							<td>з 05 години 30 хвилин 25 квітня 2022 року строком на 30 діб</td>
+							<td><b>до 25 травня 2022 року</b></td>
+						</tr>
+
+						<tr>
+							<td id="middle">Указ Президента України "Про продовження строку дії воєнного стану в
+								Україні" <br><b>від 17.05.2022<br> №342/2022</b></td>
+							<td id="middle">Закон України "Про затвердження Указу Президента України Про продовження
+								строку дії воєнного стану в Україні" <br><b>від 22.05.2022<br>№ 2264-IX</b></td>
+							<td id="middle">з 05 години 30 хвилин 24 травня 2022 року строком на 90 діб</td>
+							<td id="middle"><b>до 24 серпня 2022 року</b></td>
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</main>
+		<footer>
+			<div class="contacts">
+				<h3>Контакти:</h3>
+				<ul>
+					<li><a href="tel:+380322973091">(032) 297-30-91</a></li>
+					<li><a href="tel:+380322973051">(032) 297-30-51</a></li>
+					<li><a href="tel:+380322973035">
+							(032) 297-30-35</a></li>
+				</ul>
+			</div>
+			<div class="adress">
+				<h3>Адреса:</h3>
+				<p> м.Львів,<br> вул.Стрийська, 35</p>
+			</div>
+			<div class="mail">
+				<h3>Електронна пошта:</h3>
+				<a href="mailto:lv.personal@tax.gov.ua">lv.personal@tax.gov.ua</a>
+			</div>
+			<form>
+				<div class="form_block">
+					<p>Підпишіться щоб отримувати останні новини</p>
+					<input type="text" id="TXT" name="TXT" placeholder="Email..."
+						pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}">
+					<input id="Frm_btn" type="submit" value="Відправити">
+				</div>
+			</form>
+			<div class="copyrights">
+				<p>©2022 made by Artur Ostapyshyn</p>
+			</div>
+		</footer>
+	</div>
+</body>
+
+</html>
