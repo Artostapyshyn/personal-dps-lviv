@@ -13,7 +13,7 @@ public interface EmployeeService {
 
     Optional<Employee> findById(Long id);
 
-    Optional<Employee> findByDepartment(String department);
+    Optional<Employee> findByEmail(String email);
 
     List<Employee> findAll();
 

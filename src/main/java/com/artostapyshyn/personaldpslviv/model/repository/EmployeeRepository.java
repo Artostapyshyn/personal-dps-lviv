@@ -11,6 +11,6 @@ import com.artostapyshyn.personaldpslviv.model.entity.Employee;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long>{
-	@Query("SELECT u FROM Employee u WHERE u.department = :department")
-	Optional<Employee> findByDepartment(@Param("department") String department);
+	@Query("SELECT u FROM Employee u WHERE u.department = :email")
+	Optional<Employee> findByEmail(@Param("email") String email);
 }
