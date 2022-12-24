@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/img/**").permitAll()
                 .antMatchers("/registration").anonymous()
-                .antMatchers("/users").hasRole(Role.ADMIN.name())
+                .antMatchers("/employees").hasRole(Role.ADMIN.name())
                 .anyRequest()
                 .authenticated()
                 .and()

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Сторінка не знайдена</title>
+
+	<link rel="stylesheet" th:href="@{/css/error.css}">
+	<link rel="icon" th:href="@{/img/logo.png}">
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+	<main>
+		<center>
+		<div class="error_message" th:if="${errorMessage != null}">
+			 <textarea class="error_field" th:text="${errorMessage}"></textarea>
+			<h3><a href="/home">На головну</a></h3>
+		</div>
+		</center>
+	</main>
+</body>
+
+</html>

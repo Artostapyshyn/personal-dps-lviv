@@ -54,6 +54,7 @@ public class Employee {
 
     public Employee() {
         this.role = Role.ADMIN;
+        this.role = Role.USER;
     }
 
     @Override
