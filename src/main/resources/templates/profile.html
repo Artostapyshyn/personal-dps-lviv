@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Сторінка працівника</title>
+
+	<link rel="stylesheet" th:href="@{css/profile.css}">
+	<link rel="icon" href="@{/img/logo.png}" type="image/icon type">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+</head>
+
+<body>
+
+	<a href="logout" id="logout">
+		<i class="fa fa-sign-out-alt fa-2x"></i>
+	</a>
+
+	<div class="title">
+		<h1>Персональна сорінка</h1>
+	</div>
+
+	<div class="main">
+		<h2>Інформація</h2>
+		<div class="card">
+			<div class="card-body">
+
+				<table>
+					<tbody>
+						<tr>
+							<td>Ім'я та прізвище</td>
+							<td>th:text="${user.firstName} + ${user.lastName}" </td>
+						</tr>
+						<tr>
+							<td>Електронна пошта</td>
+							<td>th:text="${user.email}" </td>
+						</tr>
+						<tr>
+							<td>Номер телефону</td>
+							<td>th:text="${user.phoneNumber}"</td>
+						</tr>
+						<tr>
+							<td>Підрозділ</td>
+							<td>th:text="${user.department}"</td>
+						</tr>
+						<tr>
+							<td>Дата народження</td>
+							<td>th:text="${user.birthDate}"</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<h2>Основне</h2>
+		<div class="card">
+			<div class="card-body">
+				<div class="link_block">
+					<a id="link" href="/all">Всі працівники</a>
+					<a id="link" href="/edit">Внести зміни</a>
+					<a id="link" href="/delete">Видалити інформацію</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -24,24 +24,24 @@ public class AuthController {
 		return "home";
 	}
  
-	@GetMapping("login")
+	@GetMapping("/login")
 	public String getLoginPage() {
 		return "login";
 	}
 
- 	@GetMapping("profile")
+ 	@GetMapping("/profile")
 	public String getSuccessPage() {
 		return "redirect:/";
 	}
 
-	@GetMapping("registration")
+	@GetMapping("/registration")
 	public String getRegisterPage(Model model) {
 		model.addAttribute("user", new Employee());
 		model.addAttribute("roles", Role.values());
 		return "registration";
 	}
 
-	@PostMapping("registration")
+	@PostMapping("/registration")
 	public String postRegisterPage(@Valid Employee employee, BindingResult result, Model model) {
 		if (HelperController.hasErrors(result, model)) {
 			model.addAttribute("roles", Role.values());
