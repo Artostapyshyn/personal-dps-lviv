@@ -24,23 +24,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
     	employeeRepository.deleteById(id);
     }
 
     @Override
-    public Optional<Employee> findById(Long id) {
+    public Optional<Employee> findById(String id) {
         return employeeRepository.findById(id);
     }
 
-    @Override
-    public Optional<Employee> findByEmail(String email) {
-        return employeeRepository.findByEmail(email);
-    }
 
     @Override
     public List<Employee> findAll() {
         return employeeRepository.findAll();
     }
+ 
  
 }

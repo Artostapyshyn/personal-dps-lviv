@@ -2,6 +2,7 @@ package com.artostapyshyn.personaldpslviv.controller;
 
 import javax.validation.Valid;
 
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,12 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.artostapyshyn.personaldpslviv.exceptions.UserNotFoundException;
 import com.artostapyshyn.personaldpslviv.model.entity.Employee;
 import com.artostapyshyn.personaldpslviv.model.entity.Role;
 import com.artostapyshyn.personaldpslviv.model.service.EmployeeService;
 
 @Controller
-@RequestMapping("/employees")
+@RequestMapping("employees")
 public class EmployeeController {
 
 	private final EmployeeService employeeService;
@@ -33,30 +35,28 @@ public class EmployeeController {
 		return "employees/all";
 	}
 
-	@GetMapping("/edit/{id}")
-	public String getEdit(@PathVariable long id, Model model) {
-		model.addAttribute("user", employeeService.findById(id).orElseThrow());
+	@GetMapping("edit/{id}")
+	public String getEdit(@PathVariable String id, Model model) {
+		model.addAttribute("user", employeeService.findById(id).orElseThrow(() -> new UserNotFoundException(id)));
 		model.addAttribute("roles", Role.values());
 		return "employees/edit";
 	}
 
-	@PostMapping("/employees/{id}")
-	public String postEdit(@PathVariable long id, @Valid Employee employee, BindingResult result, Model model) {
+	@PostMapping("edit/{id}")
+	public String postEdit(@PathVariable String id, @Valid Employee employee, BindingResult result, Model model) {
 		if (HelperController.hasErrors(result, model)) {
 			model.addAttribute("roles", Role.values());
-			return "users/edit";
+			return "employees/edit";
 		}
 
-		Employee employeeInDb = employeeService.findById(id).orElse(new Employee());
-		if (!employeeInDb.getPassword().equals(employee.getPassword()))
-			employee.setPassword(passwordEncoder.encode(employee.getPassword()));
+		employeeService.findById(employee.getEmail());
 		employeeService.saveAndFlush(employee);
 
-		return "redirect:/employees/all";
+        return "redirect:/employees/all";
 	}
 
-	@PostMapping("/delete/{id}")
-	public String postDelete(@PathVariable long id) {
+	@PostMapping("delete/{id}")
+	public String postDelete(@PathVariable String id) {
 		employeeService.deleteById(id);
 		return "redirect:/employees/all";
 	}

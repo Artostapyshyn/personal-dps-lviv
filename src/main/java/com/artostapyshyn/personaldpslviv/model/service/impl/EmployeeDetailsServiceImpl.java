@@ -20,8 +20,8 @@ public class EmployeeDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    	Employee employee = employeeRepository.findByEmail(email).orElseThrow(() ->
+    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+    	Employee employee = employeeRepository.findById(id).orElseThrow(() ->
                 new UsernameNotFoundException("User doesn't exists"));
         return new org.springframework.security.core.userdetails.User(
         		employee.getEmail(), employee.getPassword(), Set.of(employee.getRole())

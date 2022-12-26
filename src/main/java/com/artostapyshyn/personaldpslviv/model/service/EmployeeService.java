@@ -9,11 +9,9 @@ public interface EmployeeService {
 
 	Employee saveAndFlush(Employee employee);
 
-    void deleteById(Long id);
+    void deleteById(String id);
 
-    Optional<Employee> findById(Long id);
-
-    Optional<Employee> findByEmail(String email);
+    Optional<Employee> findById(String id);
 
     List<Employee> findAll();
 

@@ -1,17 +1,19 @@
 package com.artostapyshyn.personaldpslviv.model.entity;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import org.hibernate.Hibernate;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,51 +25,37 @@ import lombok.ToString;
 @Entity
 @Table(name = "employees")
 public class Employee {
-
-    @Id
+ 
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "first_name")
+    private Long id; 
+	
+    @Column(name = "first_name", nullable = false)
     private String firstName;
-    
-    @Column(name = "last_name")
+	
+    @Column(name = "last_name", nullable = false)
     private String lastName;
-    
-    @Column(name = "department")
+	
+    @Column(name = "department", nullable = false)
     private String department;
-    
-    @Column(name = "birth_date")
+	
+    @Column(name = "birth_date", nullable = false)
     private String birthDate;
-    
-    @Column(name = "phone_number")
+	
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
     
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
-    public Employee() {
-        this.role = Role.ADMIN;
-        this.role = Role.USER;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Employee emmployee = (Employee) o;
-        return id != null && Objects.equals(id, emmployee.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
+    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinTable(
+            name="employees_roles",
+            joinColumns={@JoinColumn(name="EMPLOYEE_ID", referencedColumnName="ID")},
+            inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
+    private List<Role> roles = new ArrayList<>();
 
 }

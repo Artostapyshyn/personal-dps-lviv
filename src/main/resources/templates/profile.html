@@ -13,12 +13,12 @@
 
 <body>
 
-	<a href="logout" id="logout">
+	<a href="/logout" id="logout">
 		<i class="fa fa-sign-out-alt fa-2x"></i>
 	</a>
 
 	<div class="title">
-		<h1>Персональна сорінка</h1>
+		<h1>Персональна сторінка</h1>
 	</div>
 
 	<div class="main">
@@ -26,31 +26,7 @@
 		<div class="card">
 			<div class="card-body">
 
-				<table>
-					<tbody>
-						<tr>
-							<td>Ім'я та прізвище</td>
-							<td>th:text="${user.firstName} + ${user.lastName}" </td>
-						</tr>
-						<tr>
-							<td>Електронна пошта</td>
-							<td>th:text="${user.email}" </td>
-						</tr>
-						<tr>
-							<td>Номер телефону</td>
-							<td>th:text="${user.phoneNumber}"</td>
-						</tr>
-						<tr>
-							<td>Підрозділ</td>
-							<td>th:text="${user.department}"</td>
-						</tr>
-						<tr>
-							<td>Дата народження</td>
-							<td>th:text="${user.birthDate}"</td>
-						</tr>
-
-					</tbody>
-				</table>
+				
 			</div>
 		</div>
 

@@ -24,34 +24,34 @@ public class SecurityConfig {
         this.userDetailsService = userDetailsService;
     }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf()
-                .disable()
-                .authorizeRequests()
-                .antMatchers("/").permitAll() 
-                .antMatchers("/css/**").permitAll()
-                .antMatchers("/js/**").permitAll()
-                .antMatchers("/img/**").permitAll()
-                .antMatchers("/registration").anonymous()
-                .antMatchers("/employees").hasRole(Role.ADMIN.name())
-                .anyRequest()
-                .authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login").permitAll()
-                .defaultSuccessUrl("/profile")
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .and()
-                .httpBasic();
+    	@Bean
+    	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    		http
+    		.csrf()
+    		.disable()
+    		.authorizeRequests()
+    		.antMatchers("/").permitAll() 
+    		.antMatchers("/css/**").permitAll()
+    		.antMatchers("/js/**").permitAll()
+    		.antMatchers("/img/**").permitAll()
+    		.antMatchers("/registration").anonymous()
+    		.antMatchers("/employees").hasRole(Role.ADMIN.name())
+    		.anyRequest()
+    		.authenticated()
+    		.and()
+    		.formLogin()
+    		.loginPage("/login").permitAll()
+    		.defaultSuccessUrl("/profile")
+          	.and()
+          	.logout()
+          	.logoutUrl("/logout")
+          	.logoutSuccessUrl("/")
+          	.and()
+          	.httpBasic();
 
-        return http.build();
+    		return http.build();
     }
-
+    	
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);

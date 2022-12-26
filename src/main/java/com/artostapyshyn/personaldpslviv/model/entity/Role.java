@@ -1,12 +1,35 @@
 package com.artostapyshyn.personaldpslviv.model.entity;
 
-import org.springframework.security.core.GrantedAuthority;
+import java.util.List;
 
-public enum Role implements GrantedAuthority {
-    USER, ADMIN;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
-    @Override
-    public String getAuthority() {
-        return name();
-    }
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name="roles")
+public class Role
+{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable=false, unique=true)
+    private String name;
+
+    @ManyToMany(mappedBy="roles")
+    private List<Employee> users;
 }
