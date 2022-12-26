@@ -3,16 +3,15 @@ package com.artostapyshyn.personaldpslviv.model.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.artostapyshyn.personaldpslviv.dto.EmployeeDto;
 import com.artostapyshyn.personaldpslviv.model.entity.Employee;
 
 public interface EmployeeService {
 
-	Employee saveAndFlush(Employee employee);
+	void saveAndFlush(EmployeeDto employeeDto);
 
-    void deleteById(String id);
+    Optional<Employee>  findByEmail(String email);
 
-    Optional<Employee> findById(String id);
-
-    List<Employee> findAll();
+    List<EmployeeDto> findAll();
 
 }

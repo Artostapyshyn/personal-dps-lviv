@@ -1,7 +1,9 @@
 package com.artostapyshyn.personaldpslviv.model.service.impl;
 
+import java.util.Collection;
 import java.util.Set;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,12 +21,15 @@ public class EmployeeDetailsServiceImpl implements UserDetailsService {
         this.employeeRepository = employeeRepository;
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-    	Employee employee = employeeRepository.findById(id).orElseThrow(() ->
+    @SuppressWarnings("unchecked")
+	@Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    	Employee employee = employeeRepository.findByEmail(email).orElseThrow(() ->
                 new UsernameNotFoundException("User doesn't exists"));
+    	
         return new org.springframework.security.core.userdetails.User(
-        		employee.getEmail(), employee.getPassword(), Set.of(employee.getRole())
+        		employee.getEmail(), employee.getPassword(), (Collection<? extends GrantedAuthority>) Set.of(employee.getRoles())
         );
     }
+    
 }
