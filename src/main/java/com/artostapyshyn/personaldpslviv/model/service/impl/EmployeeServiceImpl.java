@@ -1,9 +1,8 @@
 package com.artostapyshyn.personaldpslviv.model.service.impl;
 
-
 import java.util.Arrays;
+
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,14 +17,27 @@ import com.artostapyshyn.personaldpslviv.model.service.EmployeeService;
  
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-
+	 
     private EmployeeRepository employeeRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
  
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository,
+            RoleRepository roleRepository,
+            PasswordEncoder passwordEncoder) {
+    			this.employeeRepository = employeeRepository;
+    			this.roleRepository = roleRepository;
+    			this.passwordEncoder = passwordEncoder;
+    }
+    
     @Override
     public void saveAndFlush(EmployeeDto employeeDto) {
     	Employee employee = new Employee();
+    	employee.setFirstName(employeeDto.getFirstName());
+    	employee.setLastName(employeeDto.getLastName());
+    	employee.setBirthDate(employeeDto.getBirthDate());
+    	employee.setPhoneNumber(employeeDto.getPhoneNumber());
+    	employee.setDepartment(employeeDto.getDepartment());
         employee.setEmail(employeeDto.getEmail());
 
         employee.setPassword(passwordEncoder.encode(employeeDto.getPassword()));
@@ -38,7 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Optional<Employee> findByEmail(String email) {
+    public Employee findByEmail(String email) {
         return employeeRepository.findByEmail(email);
     }
 
@@ -51,6 +63,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeDto convertEntityToDto(Employee employee){
     	EmployeeDto employeeDto = new EmployeeDto();
+    	employeeDto.setFirstName(employee.getFirstName());
+    	employeeDto.setLastName(employee.getLastName());
+        employeeDto.setPhoneNumber(employee.getPhoneNumber());
+        employeeDto.setBirthDate(employee.getBirthDate());
+        employeeDto.setDepartment(employee.getDepartment());
         employeeDto.setEmail(employee.getEmail());
         return employeeDto;
     }

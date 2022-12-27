@@ -1,29 +1,27 @@
 package com.artostapyshyn.personaldpslviv.controller;
 
-import java.util.Optional;
-
 import javax.validation.Valid;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.artostapyshyn.personaldpslviv.dto.EmployeeDto;
 import com.artostapyshyn.personaldpslviv.model.entity.Employee;
-import com.artostapyshyn.personaldpslviv.model.entity.Role;
 import com.artostapyshyn.personaldpslviv.model.service.EmployeeService;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
+ 
 @Controller
 public class AuthController {
-
-	private final EmployeeService employeeService;
-	private final PasswordEncoder passwordEncoder;
+ 
+	private EmployeeService employeeService;
+	
+	public AuthController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
 
 	@GetMapping("/") 
 	public String getHomePage() {
@@ -35,27 +33,32 @@ public class AuthController {
 		return "login";
 	}
 
- 	@GetMapping("/profile")
-	public String getSuccessPage() {
-		return "redirect:/";
-	}
-
-	@GetMapping("/registration")
+	@GetMapping("registration")
 	public String getRegisterPage(Model model) {
-		model.addAttribute("user", new Employee());
-		model.addAttribute("roles", Role.values());
+		EmployeeDto employee = new EmployeeDto();
+		model.addAttribute("user", employee);
 		return "registration";
 	}
-
-	@PostMapping("/registration")
-	public String postRegisterPage(@Valid Employee employee, BindingResult result, Model model) {
-		if (HelperController.hasErrors(result, model)) {
-			model.addAttribute("roles", Role.values());
-			return "register";
-		}
-
-		employee.setPassword(passwordEncoder.encode(employee.getPassword()));
-		employeeService.saveAndFlush(employee);
-		return "redirect:/";
+	
+	@GetMapping("/profile")
+	public String getSuccessPage() {
+		return "profile";
 	}
+
+	@PostMapping("/registration/save")
+	public String postRegisterPage(@Valid @ModelAttribute("user") EmployeeDto employee, BindingResult result, Model model){
+		Employee existing = employeeService.findByEmail(employee.getEmail());
+		if (existing != null) {
+			result.rejectValue("email", null, "There is already an account registered with that email");
+		}
+		 
+		if (result.hasErrors()) {
+			model.addAttribute("user", employee);
+			return "registration";
+		}
+		
+		employeeService.saveAndFlush(employee);
+		return "redirect:/registration?success";
+	}
+
 }

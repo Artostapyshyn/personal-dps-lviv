@@ -1,35 +1,43 @@
 package com.artostapyshyn.personaldpslviv.model.service.impl;
 
 import java.util.Collection;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.artostapyshyn.personaldpslviv.model.entity.Employee;
+import com.artostapyshyn.personaldpslviv.model.entity.Role;
 import com.artostapyshyn.personaldpslviv.model.repository.EmployeeRepository;
 
 @Service
 public class EmployeeDetailsServiceImpl implements UserDetailsService {
 
-    private final EmployeeRepository employeeRepository;
+    private EmployeeRepository employeeRepository;
 
     public EmployeeDetailsServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
-    @SuppressWarnings("unchecked")
 	@Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    	Employee employee = employeeRepository.findByEmail(email).orElseThrow(() ->
-                new UsernameNotFoundException("User doesn't exists"));
-    	
-        return new org.springframework.security.core.userdetails.User(
-        		employee.getEmail(), employee.getPassword(), (Collection<? extends GrantedAuthority>) Set.of(employee.getRoles())
-        );
-    }
+    	Employee employee = employeeRepository.findByEmail(email);
+    		if(employee == null) {
+    			throw new UsernameNotFoundException("User doesn't exists");
+    		} else {
+    			return new org.springframework.security.core.userdetails.User(
+    					employee.getEmail(), employee.getPassword(), mapRolesToAuthorities(employee.getRoles()));
+    		}
+        }
     
+    	private Collection < ? extends GrantedAuthority> mapRolesToAuthorities(Collection <Role> roles) {
+        	        Collection < ? extends GrantedAuthority> mapRoles = roles.stream()
+        	                .map(role -> new SimpleGrantedAuthority(role.getName()))
+        	                .collect(Collectors.toList());
+        	        return mapRoles;
+    	}
 }

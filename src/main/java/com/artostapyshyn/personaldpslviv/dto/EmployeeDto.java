@@ -28,4 +28,13 @@ public class EmployeeDto
     
     @NotEmpty(message = "Password should not be empty")
     private String password;
+    
+    @NotEmpty(message = "Department should not be empty")
+    private String department;
+	
+    @NotEmpty(message = "Birth date should not be empty")
+    private String birthDate;
+	
+    @NotEmpty(message = "Phone number should not be empty")
+    private String phoneNumber;
 }

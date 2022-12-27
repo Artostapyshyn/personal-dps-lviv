@@ -6,9 +6,9 @@
 	<meta charset="UTF-8">
 	<title>Вхід</title>
 	<link th:href="@{/css/login_registration.css}" rel="stylesheet" />
-	<link rel="icon" th:href="@{/img/logo.png}" type="image/icon type"/>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link rel="icon" th:href="@{/img/logo.png}" type="image/icon type" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <body>
@@ -17,23 +17,27 @@
 			<div class="form-content">
 				<div class="login-form">
 					<div class="title">Вхід</div>
-					<form  method="post">
+					<div th:if="${param.error}">
+						<p>Невірна електронна пошта або пароль, спробуйте ще раз.</p>
+					</div>
+					<form method="post" role="form" th:action="@{/login}">
 						<div class="input-boxes">
 							<div class="input-box">
 								<i class="fas fa-envelope"></i>
-								<input type="text" placeholder="Введіть пошту" id="email" name="email" required >
+								<input type="text" placeholder="Введіть пошту" id="email" name="email" required />
 							</div>
 							<div class="input-box">
 								<i class="fas fa-lock"></i>
-								<input type="password" placeholder="Введіть пароль" id="password" name="password" required>
+								<input type="password" placeholder="Введіть пароль" id="password" name="password"
+									required />
 							</div>
 							<div class="button input-box">
 								<input type="submit" value="Вхід">
 							</div>
 							<div class="text sign-up-text">
-							<label>
-							<a href="/registration">Зареєструватися</a>
-							</label>
+								<label>
+									<a th:href="@{/registration}">Зареєструватися</a>
+								</label>
 							</div>
 						</div>
 					</form>
