@@ -14,21 +14,16 @@ import com.artostapyshyn.personaldpslviv.model.entity.Role;
 import com.artostapyshyn.personaldpslviv.model.repository.EmployeeRepository;
 import com.artostapyshyn.personaldpslviv.model.repository.RoleRepository;
 import com.artostapyshyn.personaldpslviv.model.service.EmployeeService;
+
+import lombok.AllArgsConstructor;
  
 @Service
+@AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
 	 
     private EmployeeRepository employeeRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
- 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository,
-            RoleRepository roleRepository,
-            PasswordEncoder passwordEncoder) {
-    			this.employeeRepository = employeeRepository;
-    			this.roleRepository = roleRepository;
-    			this.passwordEncoder = passwordEncoder;
-    }
     
     @Override
     public void saveAndFlush(EmployeeDto employeeDto) {
@@ -39,12 +34,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     	employee.setPhoneNumber(employeeDto.getPhoneNumber());
     	employee.setDepartment(employeeDto.getDepartment());
         employee.setEmail(employeeDto.getEmail());
-
+        
         employee.setPassword(passwordEncoder.encode(employeeDto.getPassword()));
         Role role = roleRepository.findByName("ROLE_ADMIN");
+        
         if(role == null){
             role = checkRoleExist();
         }
+        
         employee.setRoles(Arrays.asList(role));
         employeeRepository.save(employee);
     }
@@ -57,7 +54,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<EmployeeDto> findAll() {
         List<Employee> employees = employeeRepository.findAll();
-        return employees.stream().map((employee) -> convertEntityToDto(employee))
+        return employees.stream()
+        		.map((employee) -> convertEntityToDto(employee))
                 .collect(Collectors.toList());
     }
 

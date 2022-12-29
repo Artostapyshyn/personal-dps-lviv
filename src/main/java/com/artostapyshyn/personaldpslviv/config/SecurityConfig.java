@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
  
 @Configuration
@@ -26,32 +25,30 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    	http
-		.csrf()
-		.disable()
-		.authorizeRequests()
-		.antMatchers("/").permitAll() 
-		.antMatchers("/css/**").permitAll()
-		.antMatchers("/js/**").permitAll()
-		.antMatchers("/img/**").permitAll()
-		.antMatchers("/registration/**").permitAll()
-		.antMatchers("/profile").hasRole("ADMIN")
-		.anyRequest()
-		.authenticated()
-		.and()
-		.formLogin()
-		.loginPage("/login")
-		.loginProcessingUrl("/login")
-		.defaultSuccessUrl("/profile")
-		.permitAll()
-      	.and()
-      	.logout()
-      	.logoutUrl("/logout")
-      	.logoutSuccessUrl("/")
-      	.and()
-      	.httpBasic();
+    	@Bean
+    	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    		http
+    		.csrf()
+    		.disable()
+    		.authorizeHttpRequests()
+    		.requestMatchers("/").permitAll() 
+    		.requestMatchers("/css/**").permitAll()
+    		.requestMatchers("/js/**").permitAll()
+			.requestMatchers("/img/**").permitAll()
+			.requestMatchers("/registration/**").anonymous()
+			.requestMatchers("/profile").hasRole("ADMIN")
+			.anyRequest()
+			.authenticated()
+			.and()
+			.formLogin()
+			.loginPage("/login").permitAll()
+			.defaultSuccessUrl("/profile", true)
+			.and()
+			.logout()
+			.logoutUrl("/logout")
+			.logoutSuccessUrl("/")
+			.and()
+			.httpBasic();
 
 		return http.build();
     }

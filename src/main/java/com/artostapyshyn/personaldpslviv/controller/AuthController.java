@@ -1,7 +1,5 @@
 package com.artostapyshyn.personaldpslviv.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.artostapyshyn.personaldpslviv.dto.EmployeeDto;
 import com.artostapyshyn.personaldpslviv.model.entity.Employee;
 import com.artostapyshyn.personaldpslviv.model.service.EmployeeService;
+
+import jakarta.validation.Valid;
 
  
 @Controller
@@ -33,7 +33,7 @@ public class AuthController {
 		return "login";
 	}
 
-	@GetMapping("registration")
+	@GetMapping("/registration")
 	public String getRegisterPage(Model model) {
 		EmployeeDto employee = new EmployeeDto();
 		model.addAttribute("user", employee);

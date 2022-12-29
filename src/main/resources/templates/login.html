@@ -20,15 +20,15 @@
 					<div th:if="${param.error}">
 						<p>Невірна електронна пошта або пароль, спробуйте ще раз.</p>
 					</div>
-					<form method="post" role="form" th:action="@{/login}">
+					<form th:action="@{/login}" method="post">
 						<div class="input-boxes">
 							<div class="input-box">
 								<i class="fas fa-envelope"></i>
-								<input type="text" placeholder="Введіть пошту" id="email" name="email" required />
+								<input type="text" placeholder="Введіть пошту" id="username" name="username" required />
 							</div>
 							<div class="input-box">
 								<i class="fas fa-lock"></i>
-								<input type="password" placeholder="Введіть пароль" id="password" name="password"
+								<input type="password" placeholder="Введіть пароль" id="password" name="password" 
 									required />
 							</div>
 							<div class="button input-box">
