@@ -16,7 +16,7 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
         Object exception = request.getAttribute(RequestDispatcher.ERROR_EXCEPTION);
         
         if (status != null)
-            model.addAttribute("errorCode", Integer.valueOf(status.toString()));
+            model.addAttribute("errorCode", status);
 
         if (exception != null)
             model.addAttribute("errorMessage", exception.toString());

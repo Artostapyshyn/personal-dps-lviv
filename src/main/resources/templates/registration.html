@@ -21,12 +21,12 @@
 						<div class="alert alert-info">Вітаємо ви успішно зареєструвалися!</div>
 					</div>
 					<form method="post" role="form" th:action="@{/registration/save}" th:object="${user}">
-						<div class="input-boxes">
+						<div class="input-boxes" th:fragment="registrationFragment">
 							<div class="input-box">
 								<i class="fas fa-pencil-alt"></i>
 								<input type="text" placeholder="Введіть ім'я" id="firstName" name="firstName"
 									th:field="*{firstName}" />
-								<p th:errors="*{firstName}" class="text-danger"
+								<p th:errors="*{firstName}" class="alert alert-info"
 									th:if="${#fields.hasErrors('firstName')}">
 								</p>
 							</div>
@@ -34,29 +34,31 @@
 								<i class="fas fa-pencil-alt"></i>
 								<input type="text" placeholder="Введіть прізвище" id="lastName" name="lastName"
 									th:field="*{lastName}" />
-								<p th:errors="*{lastName}" class="text-danger" th:if="${#fields.hasErrors('lastName')}">
+								<p th:errors="*{lastName}" class="alert alert-info" 
+									th:if="${#fields.hasErrors('lastName')}">
 								</p>
 							</div>
 							<div class="input-box">
 								<i class="fas fa-envelope"></i>
 								<input type="text" placeholder="Введіть пошту" id="email" name="email"
 									th:field="*{email}" />
-								<p th:errors="*{email}" class="text-danger" th:if="${#fields.hasErrors('email')}">
+								<p th:errors="*{email}" class="alert alert-info" 
+									th:if="${#fields.hasErrors('email')}">
 								</p>
-
 							</div>
 							<div class="input-box">
 								<i class="fas fa-lock"></i>
 								<input type="password" placeholder="Введіть пароль" id="password" name="password"
 									th:field="*{password}" />
-								<p th:errors="*{password}" class="text-danger" th:if="${#fields.hasErrors('password')}">
+								<p th:errors="*{password}" class="alert alert-info" 
+									th:if="${#fields.hasErrors('password')}">
 								</p>
 							</div>
 							<div class="input-box">
 								<i class="fa fa-calendar"></i>
 								<input type="text" placeholder="Введіть дату народження" id="birthDate" name="birthDate"
 									th:field="*{birthDate}" />
-								<p th:errors="*{birthDate}" class="text-danger"
+								<p th:errors="*{birthDate}" class="alert alert-info"
 									th:if="${#fields.hasErrors('birthDate')}">
 								</p>
 							</div>
@@ -64,7 +66,7 @@
 								<i class="	fas fa-pencil-alt"></i>
 								<input type="text" placeholder="Введіть підрозділ" id="department" name="department"
 									th:field="*{department}" />
-								<p th:errors="*{department}" class="text-danger"
+								<p th:errors="*{department}" class="alert alert-info"
 									th:if="${#fields.hasErrors('department')}">
 								</p>
 							</div>
@@ -72,7 +74,7 @@
 								<i class="	fas fa-pencil-alt"></i>
 								<input type="text" placeholder="Введіть номер телефону" id="phoneNumber"
 									name="phoneNumber" th:field="*{phoneNumber}" />
-								<p th:errors="*{phoneNumber}" class="text-danger"
+								<p th:errors="*{phoneNumber}" class="alert alert-info"
 									th:if="${#fields.hasErrors('phoneNumber')}">
 								</p>
 							</div>

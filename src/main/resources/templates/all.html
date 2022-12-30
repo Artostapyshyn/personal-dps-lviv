@@ -1,0 +1,52 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<title>Працівники</title>
+	<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+		integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" rel="stylesheet">
+	<link rel="icon" th:href="@{/img/logo.png}" type="image/icon type">	
+</head>
+
+<body>
+	<div class="text-center">
+		<h1>Працівники</h1>
+	</div>
+
+	<div class="d-flex justify-content-center">
+		<table class="table table-striped" style="width: 40rem">
+			<thead>
+				<tr>
+					<th scope="col">Ім'я</th>
+					<th scope="col">Прізвище</th>
+					<th scope="col">Підрозділ</th>
+					<th scope="col">Номер телефону</th>
+					<th scope="col">Електронна пошта</th>
+					<th scope="col">Дата народження</th>
+					 
+					<th scope="col"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${users}">
+					<th scope="row" th:text="${user.firstName}"></th>
+					<th scope="row" th:text="${user.lastName}"></th> 
+					<th scope="row" th:text="${user.department}"></th> 
+					<th scope="row" th:text="${user.phoneNumber}"></th>
+					<th scope="row" th:text="${user.email}"></th>
+					<th scope="row" th:text="${user.birthDate}"></th>
+					<td>
+						<form th:action="@{'/edit/{email}'(email=${user.email})}">
+							<button type="submit" class="btn btn-secondary">Змінити</button>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+
+</html>

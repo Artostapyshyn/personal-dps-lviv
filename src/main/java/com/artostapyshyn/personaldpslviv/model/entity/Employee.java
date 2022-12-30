@@ -3,7 +3,6 @@ package com.artostapyshyn.personaldpslviv.model.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -52,7 +51,7 @@ public class Employee {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name="employees_roles",
             joinColumns={@JoinColumn(name="EMPLOYEE_ID", referencedColumnName="ID")},

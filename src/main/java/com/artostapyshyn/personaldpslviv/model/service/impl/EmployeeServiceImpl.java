@@ -1,7 +1,6 @@
 package com.artostapyshyn.personaldpslviv.model.service.impl;
 
 import java.util.Arrays;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,6 +48,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee findByEmail(String email) {
         return employeeRepository.findByEmail(email);
+    }
+    
+    @Override
+    public void deleteById(Long id) {
+    	employeeRepository.deleteById(id);
     }
 
     @Override

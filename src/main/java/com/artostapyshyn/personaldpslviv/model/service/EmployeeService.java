@@ -10,6 +10,8 @@ public interface EmployeeService {
 
 	void saveAndFlush(EmployeeDto employeeDto);
 
+	void deleteById(Long id);
+	
     Employee findByEmail(String email);
 
     List<EmployeeDto> findAll();

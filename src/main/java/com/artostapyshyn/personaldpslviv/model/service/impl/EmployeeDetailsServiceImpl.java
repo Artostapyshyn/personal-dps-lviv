@@ -1,6 +1,7 @@
 package com.artostapyshyn.personaldpslviv.model.service.impl;
 
 import java.util.Collection;
+
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -17,7 +18,7 @@ import com.artostapyshyn.personaldpslviv.model.repository.EmployeeRepository;
 @Service
 public class EmployeeDetailsServiceImpl implements UserDetailsService {
 
-    private EmployeeRepository employeeRepository;
+	private EmployeeRepository employeeRepository;
 
     public EmployeeDetailsServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
