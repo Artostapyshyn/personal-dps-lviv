@@ -27,11 +27,11 @@ public class EmployeeDetailsServiceImpl implements UserDetailsService {
 	@Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     	Employee employee = employeeRepository.findByEmail(email);
-    		if(employee == null) {
-    			throw new UsernameNotFoundException("User doesn't exists");
-    		} else {
+    		if(employee != null) {
     			return new org.springframework.security.core.userdetails.User(
     					employee.getEmail(), employee.getPassword(), mapRolesToAuthorities(employee.getRoles()));
+    		} else {
+    			throw new UsernameNotFoundException("User doesn't exists");	
     		}
         }
     

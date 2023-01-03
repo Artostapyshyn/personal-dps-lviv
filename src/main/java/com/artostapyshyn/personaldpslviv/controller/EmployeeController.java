@@ -1,26 +1,27 @@
 package com.artostapyshyn.personaldpslviv.controller;
 
-import org.aspectj.weaver.NewConstructorTypeMunger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.artostapyshyn.personaldpslviv.dto.EmployeeDto;
 import com.artostapyshyn.personaldpslviv.exceptions.UserNotFoundException;
 import com.artostapyshyn.personaldpslviv.model.entity.Employee;
 import com.artostapyshyn.personaldpslviv.model.service.EmployeeService;
 
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @Controller
 @AllArgsConstructor
 public class EmployeeController {
 
-	private final EmployeeService employeeService;
+	@Autowired
+	private EmployeeService employeeService;
 
 	@GetMapping("/all")
 	public String getAll(Model model) {
@@ -40,23 +41,31 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/edit/{email}")
-	public String postEdit(@PathVariable String email, @Valid EmployeeDto employeeDto, BindingResult result, Model model) {
-		if (HelperController.hasErrors(result, model)) {
-			return "edit";
-		}
+	public String postEdit(@PathVariable String email, @ModelAttribute("user") Employee empDto, BindingResult result, Model model) {
+	    if (HelperController.hasErrors(result, model)) {
+	  		return "edit";
+	  	}
 		
-		model.addAttribute("user", new EmployeeDto());
-
-		employeeService.findByEmail(employeeDto.getEmail());
-		employeeService.saveAndFlush(employeeDto);
-
-        return "redirect:/all";
+		String currentEmployee = SecurityContextHolder.getContext().getAuthentication().getName();
+        boolean needLogout = false;
+        needLogout = empDto.getEmail().equals(currentEmployee);
+        
+		 if (needLogout)
+	            return "redirect:/logout";
+	        else
+	            return "redirect:/edit/" + email;
 	}
 
 	@PostMapping("/delete/{id}")
 	public String postDelete(@PathVariable Long id) {
-		employeeService.deleteById(id);
-		return "redirect:/all";
+		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        employeeService.deleteById(id);
+
+        if (id.equals(currentUsername))
+            return "redirect:/logout";
+        else
+            return "redirect:/all";
 	}
 
 }

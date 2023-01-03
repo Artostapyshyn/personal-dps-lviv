@@ -14,10 +14,15 @@
 	<div class="tab-content mb-3">
 		<div aria-labelledby="pills-general-tab" class="tab-pane fade show active" id="pills-general" role="tabpanel"
 			tabindex="0">
-			<div class="d-flex justify-content-center mb-3">
-				<form method="post" th:action="@{'/edit/{email}'(id=${user.email})}">
-
-					<div th:insert="~{registration :: registrationFragment}"></div>
+			<div class="w-100 p-4 d-flex justify-content-center pb-4">
+				<form method="post" th:action="@{'/edit/{email}'(id=${user.email})}" th:object="${user}">
+					
+					<input type="text" id="firstName" name="firstName" th:value="${user.firstName}" />
+					<input type="text" id="lastName" name="lastName" th:value="${user.lastName}" />
+					<input type="text" id="email" name="email" th:value="${user.email}" />
+					<input type="text" id="department" name="department" th:value="${user.department}"/>
+					<input type="text" id="birthDate" name="birthDate" th:value="${user.birthDate}"/>
+					<input type="text" id="phoneNumber" name="phoneNumber" th:value="${user.phoneNumber}"/>
 		
 					<input type="hidden" id="password" name="password" th:value="${user.password}">
 
@@ -31,6 +36,7 @@
 				<form method="post" th:action="@{'/delete/{id}' (id=${user.id})}">
 					<button class="btn btn-danger" type="submit">Видалити</button>
 				</form>
+				<a class="btn btn-primary" th:href="@{/all}">Назад</a>
 			</div>
 		</div>
 	</div>
