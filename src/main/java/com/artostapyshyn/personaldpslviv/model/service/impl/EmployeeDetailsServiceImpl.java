@@ -28,8 +28,7 @@ public class EmployeeDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     	Employee employee = employeeRepository.findByEmail(email);
     		if(employee != null) {
-    			return new org.springframework.security.core.userdetails.User(
-    					employee.getEmail(), employee.getPassword(), mapRolesToAuthorities(employee.getRoles()));
+    			return new org.springframework.security.core.userdetails.User(employee.getEmail(), employee.getPassword(), mapRolesToAuthorities(employee.getRoles()));
     		} else {
     			throw new UsernameNotFoundException("User doesn't exists");	
     		}

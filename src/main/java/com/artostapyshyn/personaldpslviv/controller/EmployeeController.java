@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.artostapyshyn.personaldpslviv.dto.EmployeeDto;
 import com.artostapyshyn.personaldpslviv.exceptions.UserNotFoundException;
-import com.artostapyshyn.personaldpslviv.model.entity.Employee;
 import com.artostapyshyn.personaldpslviv.model.service.EmployeeService;
 
 import lombok.AllArgsConstructor;
@@ -41,31 +41,28 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/edit/{email}")
-	public String postEdit(@PathVariable String email, @ModelAttribute("user") Employee empDto, BindingResult result, Model model) {
-	    if (HelperController.hasErrors(result, model)) {
-	  		return "edit";
-	  	}
+	public String postEdit(@PathVariable String email, @ModelAttribute("user") EmployeeDto empDto, BindingResult result, Model model) {
+	    if (HelperController.hasErrors(result, model))
+	     	model.addAttribute("user", empDto);
 		
 		String currentEmployee = SecurityContextHolder.getContext().getAuthentication().getName();
+		
         boolean needLogout = false;
         needLogout = empDto.getEmail().equals(currentEmployee);
+        
+        employeeService.saveAndFlush(empDto);
         
 		 if (needLogout)
 	            return "redirect:/logout";
 	        else
-	            return "redirect:/edit/" + email;
+	            return "redirect:/all";
 	}
 
 	@PostMapping("/delete/{id}")
 	public String postDelete(@PathVariable Long id) {
-		String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-
         employeeService.deleteById(id);
-
-        if (id.equals(currentUsername))
-            return "redirect:/logout";
-        else
-            return "redirect:/all";
+            
+        return "redirect:/all";
 	}
 
 }

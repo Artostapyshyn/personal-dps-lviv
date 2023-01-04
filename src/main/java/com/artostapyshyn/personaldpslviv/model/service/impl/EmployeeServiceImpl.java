@@ -26,22 +26,28 @@ public class EmployeeServiceImpl implements EmployeeService {
     
     @Override
     public void saveAndFlush(EmployeeDto employeeDto) {
-    	Employee employee = new Employee();
-    	employee.setFirstName(employeeDto.getFirstName());
+    	Employee employee = findByEmail(employeeDto.getEmail());
+    	
+    	if (employee == null){
+    		employee = new Employee();
+    		employee.setPassword(passwordEncoder.encode(employeeDto.getPassword()));
+    		
+    		Role role = roleRepository.findByName("ROLE_ADMIN");
+        
+        	if(role == null){
+        		role = checkRoleExist();
+        	}
+        	
+        	employee.setRoles(Arrays.asList(role));
+    	}
+    	
+        employee.setFirstName(employeeDto.getFirstName());
     	employee.setLastName(employeeDto.getLastName());
     	employee.setBirthDate(employeeDto.getBirthDate());
     	employee.setPhoneNumber(employeeDto.getPhoneNumber());
     	employee.setDepartment(employeeDto.getDepartment());
         employee.setEmail(employeeDto.getEmail());
         
-        employee.setPassword(passwordEncoder.encode(employeeDto.getPassword()));
-        Role role = roleRepository.findByName("ROLE_ADMIN");
-        
-        if(role == null){
-            role = checkRoleExist();
-        }
-        
-        employee.setRoles(Arrays.asList(role));
         employeeRepository.save(employee);
     }
 
