@@ -1,6 +1,7 @@
 package com.artostapyshyn.personaldpslviv.dto;
 
-import jakarta.validation.constraints.Email;
+import com.artostapyshyn.personaldpslviv.validation.UniqueEmail;
+
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,10 +22,10 @@ public class EmployeeDto
     @NotEmpty
     private String lastName;
     
+    @UniqueEmail
     @NotEmpty(message = "Email should not be empty")
-    @Email
     private String email;
-    
+   
     @NotEmpty(message = "Password should not be empty")
     private String password;
     

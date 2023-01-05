@@ -1,7 +1,6 @@
 package com.artostapyshyn.personaldpslviv.model.service.impl;
 
 import java.util.Collection;
-
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;

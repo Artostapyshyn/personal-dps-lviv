@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.artostapyshyn.personaldpslviv.dto.EmployeeDto;
-import com.artostapyshyn.personaldpslviv.model.entity.Employee;
 import com.artostapyshyn.personaldpslviv.model.service.EmployeeService;
 
 import jakarta.validation.Valid;
@@ -47,10 +46,6 @@ public class AuthController {
 
 	@PostMapping("/registration/save")
 	public String postRegisterPage(@Valid @ModelAttribute("user") EmployeeDto employee, BindingResult result, Model model){
-		Employee existing = employeeService.findByEmail(employee.getEmail());
-		if (existing != null) {
-			result.rejectValue("email", null, "There is already an account registered with that email");
-		}
 		 
 		if (result.hasErrors()) {
 			model.addAttribute("user", employee);

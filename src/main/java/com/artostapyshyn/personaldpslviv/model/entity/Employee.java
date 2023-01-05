@@ -1,6 +1,7 @@
 package com.artostapyshyn.personaldpslviv.model.entity;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -57,5 +58,5 @@ public class Employee {
             joinColumns={@JoinColumn(name="EMPLOYEE_ID", referencedColumnName="ID")},
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles = new ArrayList<>();
-     
+
 }
