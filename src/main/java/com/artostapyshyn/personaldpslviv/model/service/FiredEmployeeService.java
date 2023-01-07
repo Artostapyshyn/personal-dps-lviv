@@ -1,8 +1,8 @@
 package com.artostapyshyn.personaldpslviv.model.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import com.artostapyshyn.personaldpslviv.model.entity.Employee;
 import com.artostapyshyn.personaldpslviv.model.entity.FiredEmployee;
 
 public interface FiredEmployeeService {
@@ -13,6 +13,6 @@ public interface FiredEmployeeService {
 
 	void deleteById(Long id);
 	
-    Employee getFiredEmployeeById(Long id);
+    Optional<FiredEmployee> getFiredEmployeeById(Long id);
 
 }

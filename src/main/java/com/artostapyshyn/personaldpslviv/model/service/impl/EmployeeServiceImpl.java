@@ -32,7 +32,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     		employee = new Employee();
     		employee.setPassword(passwordEncoder.encode(employeeDto.getPassword()));
     		
-    		Role role = roleRepository.findByName("ROLE_USER");
+    		Role role = roleRepository.findByName("ROLE_ADMIN");
         
         	if(role == null){
         		role = checkRoleExist();
@@ -82,7 +82,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private Role checkRoleExist() {
         Role role = new Role();
-        role.setName("ROLE_USER");
+        role.setName("ROLE_ADMIN");
         return roleRepository.save(role);
     }
 

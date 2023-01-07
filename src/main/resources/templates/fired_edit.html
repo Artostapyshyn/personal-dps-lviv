@@ -15,28 +15,26 @@
 		<div aria-labelledby="pills-general-tab" class="tab-pane fade show active" id="pills-general" role="tabpanel"
 			tabindex="0">
 			<div class="w-100 p-4 d-flex justify-content-center pb-4">
-				<form method="post" th:action="@{'/registered/edit/{email}'(id=${user.email})}" th:object="${user}">
-
-					<input type="text" id="firstName" name="firstName" th:field="*{firstName}" />
-					<input type="text" id="lastName" name="lastName" th:field="*{lastName}" />
-					<input type="hidden" id="email" name="email" th:field="*{email}" />
-					<input type="text" id="department" name="department" th:field="*{birthDate}" />
-					<input type="text" id="birthDate" name="birthDate" th:field="*{department}" />
-					<input type="text" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" />
-		
-					<input type="hidden" id="password" name="password" th:value="${user.password}">
-
+				<form method="post" th:action="@{'/fired/edit/{id}'(id=${fireduser.id})}" th:object="${fireduser}">
+						<input type="hidden" id="id" name="id" th:field="*{id}" />
+						<input type="text" id="firstName" name="firstName" th:field="*{firstName}" />
+						<input type="text" id="lastName" name="lastName" th:field="*{lastName}" />
+						<input type="text" id="department" name="department" th:field="*{birthDate}" />
+						<input type="text" id="birthDate" name="birthDate" th:field="*{department}" />
+						<input type="text" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" />
+						<input type="text" id="firingReason" name="firingReason" th:field="*{firingReason}" />
+						<input type="text" id="firingDate" name="firingDate" th:field="*{firingDate}" />
 					<div class="text-center">
 						<button class="btn btn-primary" type="submit">Змінити</button>
 					</div>
 				</form>
 			</div>
 
-	 		<div class="text-center">
-				<form method="post" th:action="@{'/registered/delete/{id}' (id=${user.id})}">
+			<div class="text-center">
+				<form method="post" th:action="@{'/fired/delete/{id}' (id=${fireduser.id})}">
 					<button class="btn btn-danger" type="submit">Видалити</button>
 				</form>
-				<a class="btn btn-primary" th:href="@{/registered/all}">Назад</a>
+				<a class="btn btn-primary" th:href="@{/fired/all}">Назад</a>
 			</div>
 		</div>
 	</div>

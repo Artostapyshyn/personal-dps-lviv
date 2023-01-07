@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.artostapyshyn.personaldpslviv.dto.EmployeeDto;
 import com.artostapyshyn.personaldpslviv.exceptions.UserNotFoundException;
@@ -18,6 +19,7 @@ import lombok.AllArgsConstructor;
 
 @Controller
 @AllArgsConstructor
+@RequestMapping("/registered")
 public class EmployeeController {
 
 	@Autowired
@@ -55,14 +57,14 @@ public class EmployeeController {
 		 if (needLogout)
 	            return "redirect:/logout";
 	        else
-	            return "redirect:/all";
+	            return "redirect:/registered/all";
 	}
 
 	@PostMapping("/delete/{id}")
 	public String postDelete(@PathVariable Long id) {
         employeeService.deleteById(id);
             
-        return "redirect:/all";
+        return "redirect:/registered/all";
 	}
 
 }
