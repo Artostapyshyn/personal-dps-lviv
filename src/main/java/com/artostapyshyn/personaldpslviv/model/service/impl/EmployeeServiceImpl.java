@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +15,19 @@ import com.artostapyshyn.personaldpslviv.model.repository.EmployeeRepository;
 import com.artostapyshyn.personaldpslviv.model.repository.RoleRepository;
 import com.artostapyshyn.personaldpslviv.model.service.EmployeeService;
 
-import lombok.AllArgsConstructor;
  
 @Service
-@AllArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
-	 
+	
+	@Autowired 
     private EmployeeRepository employeeRepository;
-    private RoleRepository roleRepository;
-    private PasswordEncoder passwordEncoder;
     
+	@Autowired
+	private RoleRepository roleRepository;
+    
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
     @Override
     public void saveAndFlush(EmployeeDto employeeDto) {
     	Employee employee = findByEmail(employeeDto.getEmail());
@@ -85,5 +89,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         role.setName("ROLE_ADMIN");
         return roleRepository.save(role);
     }
+
+	@Override
+	public EmployeeDto findByConfirmationToken(String confirmationToken) {
+		return employeeRepository.findByConfirmationToken(confirmationToken);
+	}
 
 }

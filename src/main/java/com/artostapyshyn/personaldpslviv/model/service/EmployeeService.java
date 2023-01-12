@@ -14,5 +14,6 @@ public interface EmployeeService {
     Employee findByEmail(String email);
 
     List<EmployeeDto> findAll();
-
+    
+    EmployeeDto findByConfirmationToken(String confirmationToken);
 }

@@ -15,12 +15,10 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
  
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -53,11 +51,17 @@ public class Employee {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "enabled", nullable = false)
+	private Boolean enabled;
+	
+	@Column(name = "confirmation_token")
+	private String confirmationToken;
+    
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name="employees_roles",
             joinColumns={@JoinColumn(name="EMPLOYEE_ID", referencedColumnName="ID")},
             inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
     private List<Role> roles = new ArrayList<>();
-
+    
 }

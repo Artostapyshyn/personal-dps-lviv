@@ -38,4 +38,8 @@ public class EmployeeDto
     @NotEmpty(message = "Phone number should not be empty")
     private String phoneNumber;
     
+	private Boolean enabled;
+	
+	private String confirmationToken;
+    
 }
