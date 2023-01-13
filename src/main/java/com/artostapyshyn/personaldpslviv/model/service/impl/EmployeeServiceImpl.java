@@ -2,6 +2,7 @@ package com.artostapyshyn.personaldpslviv.model.service.impl;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private PasswordEncoder passwordEncoder;
 	
     @Override
-    public void saveAndFlush(EmployeeDto employeeDto) {
+    public Employee saveAndFlush(EmployeeDto employeeDto) {
     	Employee employee = findByEmail(employeeDto.getEmail());
     	
     	if (employee == null){
@@ -44,15 +45,16 @@ public class EmployeeServiceImpl implements EmployeeService {
         	
         	employee.setRoles(Arrays.asList(role));
     	}
-    	
+    	employee.setId(employeeDto.getId());
         employee.setFirstName(employeeDto.getFirstName());
     	employee.setLastName(employeeDto.getLastName());
     	employee.setBirthDate(employeeDto.getBirthDate());
     	employee.setPhoneNumber(employeeDto.getPhoneNumber());
     	employee.setDepartment(employeeDto.getDepartment());
         employee.setEmail(employeeDto.getEmail());
-        
-        employeeRepository.save(employee);
+        employee.setEnabled(employeeDto.getEnabled());
+        employee.setConfirmationToken(employeeDto.getConfirmationToken());
+		return employeeRepository.save(employee);
     }
 
     @Override
@@ -75,12 +77,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeDto convertEntityToDto(Employee employee){
     	EmployeeDto employeeDto = new EmployeeDto();
+    	employeeDto.setId(employee.getId());
     	employeeDto.setFirstName(employee.getFirstName());
     	employeeDto.setLastName(employee.getLastName());
         employeeDto.setPhoneNumber(employee.getPhoneNumber());
         employeeDto.setBirthDate(employee.getBirthDate());
         employeeDto.setDepartment(employee.getDepartment());
         employeeDto.setEmail(employee.getEmail());
+        employeeDto.setEnabled(employee.getEnabled());
+        employeeDto.setConfirmationToken(employee.getConfirmationToken());
         return employeeDto;
     }
 
@@ -93,6 +98,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public EmployeeDto findByConfirmationToken(String confirmationToken) {
 		return employeeRepository.findByConfirmationToken(confirmationToken);
+	}
+
+	@Override
+	public Optional<Employee> findById(Long id) {
+		return employeeRepository.findById(id);
 	}
 
 }
