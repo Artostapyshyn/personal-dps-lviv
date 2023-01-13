@@ -62,7 +62,7 @@ public class AuthController {
 		employee.setConfirmationToken(UUID.randomUUID().toString());
 		
 		String appUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-		
+		 
 		Mail mail = new Mail();
 		mail.setMailFrom("System@gmail.com");
 		mail.setMailTo(employee.getEmail());
@@ -70,7 +70,7 @@ public class AuthController {
 		mail.setMailContent("To confirm you email, please click the link below and login:\n"
 				+ appUrl + "/confirm?token=" + employee.getConfirmationToken());
 		emailService.sendEmail(mail);
-
+ 
 		employeeService.saveAndFlush(employee);
 		return "confirm";
 	}

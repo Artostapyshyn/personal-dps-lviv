@@ -9,7 +9,7 @@ public interface FiredEmployeeService {
 	
 	List<FiredEmployee> getAll();
 	
-	void saveEmployee(FiredEmployee firedEmployee);
+	FiredEmployee saveEmployee(FiredEmployee firedEmployee);
 
 	void deleteById(Long id);
 	

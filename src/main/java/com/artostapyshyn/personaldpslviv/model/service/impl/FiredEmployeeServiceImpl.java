@@ -17,8 +17,8 @@ public class FiredEmployeeServiceImpl implements FiredEmployeeService {
     private FiredEmployeeRepository firedEmployeeRepository;
     
     @Override
-    public void saveEmployee(FiredEmployee firedEmployee) {
-    	firedEmployeeRepository.save(firedEmployee);
+    public FiredEmployee saveEmployee(FiredEmployee firedEmployee) {
+    	return firedEmployeeRepository.save(firedEmployee);
     }
 
     @Override
