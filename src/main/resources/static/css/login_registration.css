@@ -40,6 +40,7 @@ body{
 }
 
 .form-content .login-form,
+.form-content .edit-form,
 .form-content{
   height: 100%;
   width: 100%;
@@ -59,7 +60,7 @@ body{
 .forms .form-content .input-box{
   display: flex;
   align-items: center;
-  height: 50px;
+  height: 40px;
   width: 100%;
   margin: 10px 0;
   position: relative;
@@ -88,6 +89,10 @@ body{
   font-size: 17px;
 }
 
+p {
+  margin-bottom: 10px;
+}
+
 .forms .form-content .text{
   font-size: 14px;
   font-weight: 500;
@@ -106,7 +111,7 @@ body{
 
 .forms .form-content .button{
   color: #fff;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .forms .form-content .button input{
@@ -133,7 +138,8 @@ body{
 
 .forms .form-content .login-text,
 .forms .form-content .sign-up-text,
-.forms .form-content .sign-in-text{
+.forms .form-content .sign-in-text,
+.forms .form-content .back-text{
   text-align: center;
   font-family: 'Karla', sans-serif;  
   margin-top: 25px;
@@ -141,6 +147,8 @@ body{
 
 @media (max-width: 250px) {
   .form-content .login-form,
+  .form-content,
+  .form-content .edit-form,
   .form-content{
     height: 100%;
     width: 100%;
@@ -154,7 +162,8 @@ body{
     display: block;
   }
     
-  .container .forms .login-form{
+  .container .forms .login-form,
+  .container .forms .edit-form{
     display: none;
   }
 }

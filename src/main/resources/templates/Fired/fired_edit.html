@@ -1,0 +1,76 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<title>Змінити інформацію про звільненого працівника</title>
+	<link rel="stylesheet" th:href="@{/css/login_registration.css}">
+	<link rel="icon" th:href="@{/img/logo.png}" type="image/icon type">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+<body>
+	<div class="container">
+		<div class="forms">
+			<div class="form-content">
+				<div class="edit-form">
+					<div class="title">Змінити інформацію про звільненого працівника</div>
+					<form method="post" th:action="@{'/fired/edit/{id}'(id=${fireduser.id})}" th:object="${fireduser}">
+						<div class="input-boxes">
+						<p>Ім'я</p>
+							<div class="input-box">
+								<i class="fas fa-pencil-alt"></i>
+								<input type="text" id="firstName" name="firstName" th:field="*{firstName}" />
+							</div>
+							<p>Прізвище</p>
+							<div class="input-box">
+								<i class="fas fa-pencil-alt"></i>
+								<input type="text" id="lastName" name="lastName" th:field="*{lastName}" />
+							</div>
+							<p>Дата народження</p>
+							<div class="input-box">
+								<i class="fa fa-calendar"></i>
+								<input type="text" id="birthDate" name="birthDate" th:field="*{birthDate}" />
+							</div>
+							<p>Підрозділ</p>
+							<div class="input-box">
+								<i class="fas fa-pencil-alt"></i>
+								<input type="text" id="department" name="department" th:field="*{department}" />
+							</div>
+							<p>Номер телефону</p>
+							<div class="input-box">
+								<i class="	fas fa-pencil-alt"></i>
+								<input type="text" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" />
+							</div>
+							<p>Причина звільнення</p>
+							<div class="input-box">
+								<i class="	fas fa-pencil-alt"></i>
+								<input type="text" id="firingReason" name="firingReason" th:field="*{firingReason}" />
+							</div>
+							<p>Дата звільнення</p>
+							<div class="input-box">
+								<i class="	fas fa-pencil-alt"></i>
+								<input type="text" id="firingDate" name="firingDate" th:field="*{firingDate}" />
+							</div>
+							<input type="hidden" id="id" name="id" th:field="*{id}" /> 
+							<div class="button input-box">
+								<input type="submit" value="Змінити">
+							</div>
+							<div class="button input-box">
+								<form method="post" th:action="@{'/fired/delete/{id}' (id=${fireduser.id})}">
+									<input class="button" type="submit" value="Видалити">
+								</form>
+							</div>
+							<div class="text back-text"><label>
+									<a th:href="@{/fired/all}">Назад</a></label>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
