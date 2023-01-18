@@ -18,7 +18,7 @@
 					<div class="title">Змінити інформацію про звільненого працівника</div>
 					<form method="post" th:action="@{'/fired/edit/{id}'(id=${fireduser.id})}" th:object="${fireduser}">
 						<div class="input-boxes">
-						<p>Ім'я</p>
+							<p>Ім'я</p>
 							<div class="input-box">
 								<i class="fas fa-pencil-alt"></i>
 								<input type="text" id="firstName" name="firstName" th:field="*{firstName}" />
@@ -53,19 +53,17 @@
 								<i class="	fas fa-pencil-alt"></i>
 								<input type="text" id="firingDate" name="firingDate" th:field="*{firingDate}" />
 							</div>
-							<input type="hidden" id="id" name="id" th:field="*{id}" /> 
+							<input type="hidden" id="id" name="id" th:field="*{id}" />
 							<div class="button input-box">
 								<input type="submit" value="Змінити">
-							</div>
-							<div class="button input-box">
-								<form method="post" th:action="@{'/fired/delete/{id}' (id=${fireduser.id})}">
-									<input class="button" type="submit" value="Видалити">
-								</form>
 							</div>
 							<div class="text back-text"><label>
 									<a th:href="@{/fired/all}">Назад</a></label>
 							</div>
 						</div>
+					</form>
+					<form method="post" th:action="@{'/fired/delete/{id}' (id=${fireduser.id})}">
+						<button class="delete-button" type="submit">Видалити</button>
 					</form>
 				</div>
 			</div>

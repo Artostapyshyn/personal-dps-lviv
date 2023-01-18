@@ -2,18 +2,21 @@ package com.artostapyshyn.personaldpslviv.model.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.artostapyshyn.personaldpslviv.model.entity.FiredEmployee;
 import com.artostapyshyn.personaldpslviv.model.repository.FiredEmployeeRepository;
 import com.artostapyshyn.personaldpslviv.model.service.FiredEmployeeService;
 
-import lombok.AllArgsConstructor;
+import jakarta.transaction.Transactional;
+
 
 @Service
-@AllArgsConstructor
 public class FiredEmployeeServiceImpl implements FiredEmployeeService {
 	
+	@Autowired
     private FiredEmployeeRepository firedEmployeeRepository;
     
     @Override
@@ -27,6 +30,7 @@ public class FiredEmployeeServiceImpl implements FiredEmployeeService {
     }
     
     @Override
+    @Transactional
     public void deleteById(Long id) {
     	firedEmployeeRepository.deleteById(id);
     }

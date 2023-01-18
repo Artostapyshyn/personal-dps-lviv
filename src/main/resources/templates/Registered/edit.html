@@ -54,15 +54,13 @@
 							<div class="button input-box">
 								<input type="submit" value="Змінити">
 							</div>
-							<div class="button input-box">
-								<form method="post" th:action="@{'/registered/delete/{id}' (id=${user.id})}">
-									<input class="button" type="submit" value="Видалити">
-								</form>
-							</div>
 							<div class="text back-text"><label>
-									<a th:href="@{/registered/all}">Назад</a></label>
+								<a th:href="@{/registered/all}">Назад</a></label>
 							</div>
 						</div>
+					</form>
+					<form method="post" th:action="@{'/registered/delete/{id}' (id=${user.id})}">
+						<button class="delete-button" type="submit">Видалити</button>
 					</form>
 				</div>
 			</div>

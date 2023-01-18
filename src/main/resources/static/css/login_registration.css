@@ -66,7 +66,8 @@ body{
   position: relative;
 }
 
-.form-content .input-box input{
+.form-content .input-box input,
+.edit-form .delete-button{
   height: 100%;
   width: 100%;
   outline: none;
@@ -102,14 +103,15 @@ p {
 
 .forms .form-content .text a{
   text-decoration: none;
-    color: #13447E;
+  color: #13447E;
 }
 
 .forms .form-content .text a:hover{
    font-weight: bold;
 }
 
-.forms .form-content .button{
+.forms .form-content .button,
+.delete-button{
   color: #fff;
   margin-top: 20px;
 }
@@ -117,6 +119,15 @@ p {
 .forms .form-content .button input{
   color: #fff;
   background: #25A972;
+  border-radius: 6px;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.delete-button{
+  color: #fff;
+  background: red;
   border-radius: 6px;
   padding: 0;
   cursor: pointer;
