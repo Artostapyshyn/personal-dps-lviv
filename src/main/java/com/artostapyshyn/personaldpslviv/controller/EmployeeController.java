@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.artostapyshyn.personaldpslviv.dto.EmployeeDto;
-import com.artostapyshyn.personaldpslviv.exceptions.UserNotFoundException;
+import com.artostapyshyn.personaldpslviv.exceptions.UserIdIsNotValidException;
 import com.artostapyshyn.personaldpslviv.model.service.EmployeeService;
 
 import lombok.AllArgsConstructor;
@@ -28,22 +28,22 @@ public class EmployeeController {
 	@GetMapping("/all")
 	public String getAll(Model model) {
 		model.addAttribute("users", employeeService.findAll());
-		return "all";
+		return "registered/all";
 	}
 
-	@GetMapping("/edit/{email}")
-	public String getEdit(@PathVariable String email, Model model) {
-		model.addAttribute("user", employeeService.findByEmail(email));
+	@GetMapping("/edit/{id}")
+	public String getEdit(@PathVariable Long id, Model model) {
+		employeeService.findById(id).ifPresent(o -> model.addAttribute("user", o));
 		 
-			if(email == null) {
-				throw new UserNotFoundException(email);
+			if(id == null) {
+				throw new UserIdIsNotValidException(id);
 			}
 			
-		return "edit";
+		return "registered/edit";
 	}
 
-	@PostMapping("/edit/{email}")
-	public String postEdit(@PathVariable String email, @ModelAttribute("user") EmployeeDto empDto, BindingResult result, Model model) {
+	@PostMapping("/edit/{id}")
+	public String postEdit(@PathVariable Long id, @ModelAttribute("user") EmployeeDto empDto, BindingResult result, Model model) {
 	    if (HelperController.hasErrors(result, model))
 	     	model.addAttribute("user", empDto);
 		

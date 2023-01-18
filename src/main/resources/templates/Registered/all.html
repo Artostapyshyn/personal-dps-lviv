@@ -19,6 +19,7 @@
 		<table class="table table-striped" style="width: 40rem">
 			<thead>
 				<tr>
+					<th scope="col">№</th>
 					<th scope="col">Ім'я</th>
 					<th scope="col">Прізвище</th>
 					<th scope="col">Підрозділ</th>
@@ -31,6 +32,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="user : ${users}">
+					<th scope="row" th:text="${user.id}"></th>
 					<th scope="row" th:text="${user.firstName}"></th>
 					<th scope="row" th:text="${user.lastName}"></th> 
 					<th scope="row" th:text="${user.department}"></th> 
@@ -38,7 +40,7 @@
 					<th scope="row" th:text="${user.email}"></th>
 					<th scope="row" th:text="${user.birthDate}"></th>
 					<td>
-						<form th:action="@{'edit/{email}'(email=${user.email})}">
+						<form th:action="@{'edit/{id}'(id=${user.id})}">
 							<button type="submit" class="btn btn-secondary">Змінити</button>
 						</form>
 					</td>

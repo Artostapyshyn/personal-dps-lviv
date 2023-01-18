@@ -17,7 +17,7 @@
 			<div class="form-content">
 				<div class="edit-form">
 					<div class="title">Змінити інформацію про працівника</div>
-					<form method="post" th:action="@{'/registered/edit/{email}'(id=${user.email})}" th:object="${user}">
+					<form method="post" th:action="@{'/registered/edit/{id}'(id=${user.id})}" th:object="${user}">
 						<div class="input-boxes">
 							<p>Ім'я</p>
 							<div class="input-box">
@@ -28,6 +28,11 @@
 							<div class="input-box">
 								<i class="fas fa-pencil-alt"></i>
 								<input type="text" id="lastName" name="lastName" th:field="*{lastName}" />
+							</div>
+							<p>Електронна пошта</p>
+							<div class="input-box">
+								<i class="fa fa-calendar"></i>
+								<input type="text" id="email" name="email" th:field="*{email}" />
 							</div>
 							<p>Дата народження</p>
 							<div class="input-box">
@@ -44,8 +49,8 @@
 								<i class="	fas fa-pencil-alt"></i>
 								<input type="text" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" />
 							</div>
+							<input type="hidden" id="id" name="id" th:field="*{id}" />
 							<input type="hidden" id="password" name="password" th:value="${user.password}">
-							<input type="hidden" id="email" name="email" th:field="*{email}" />
 							<div class="button input-box">
 								<input type="submit" value="Змінити">
 							</div>

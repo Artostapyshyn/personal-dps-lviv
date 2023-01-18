@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.artostapyshyn.personaldpslviv.exceptions.UserIdIsNotValidException;
 import com.artostapyshyn.personaldpslviv.model.entity.FiredEmployee;
 import com.artostapyshyn.personaldpslviv.model.service.FiredEmployeeService;
 
@@ -26,7 +27,7 @@ public class FiredEmployeeController {
 	@GetMapping("/all")
 	public String getAll(Model model) {
 		model.addAttribute("firedusers", firedEmployeeService.getAll());
-		return "fired_all";
+		return "fired/fired_all";
 	}
 
 	@PostMapping("/delete/{id}")
@@ -40,7 +41,7 @@ public class FiredEmployeeController {
 	public String showAddForm(Model model) {
 		model.addAttribute("newfireduser", new FiredEmployee());
 
-		return "add";
+		return "fired/add";
 	}
 
 	@PostMapping("/save")
@@ -55,10 +56,10 @@ public class FiredEmployeeController {
 		model.addAttribute("fireduser", firedEmployeeService.getFiredEmployeeById(id).orElse(null));
 
 		if (id == null) {
-			throw new RuntimeException("Employee not found");
+			throw new UserIdIsNotValidException(id);
 		}
 
-		return "fired_edit";
+		return "fired/fired_edit";
 	}
 
 	@PostMapping("/edit/{id}")
