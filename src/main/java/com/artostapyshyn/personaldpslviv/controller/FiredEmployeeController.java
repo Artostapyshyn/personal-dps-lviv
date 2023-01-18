@@ -1,5 +1,11 @@
 package com.artostapyshyn.personaldpslviv.controller;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,10 +16,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.artostapyshyn.personaldpslviv.excel.ExcelSaver;
 import com.artostapyshyn.personaldpslviv.exceptions.UserIdIsNotValidException;
 import com.artostapyshyn.personaldpslviv.model.entity.FiredEmployee;
 import com.artostapyshyn.personaldpslviv.model.service.FiredEmployeeService;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 
 @Controller
@@ -72,5 +80,20 @@ public class FiredEmployeeController {
 
 		return "redirect:/fired/all";
 	}
+	
+	@GetMapping("/export")
+    public void exportDataIntoExcelFile(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=FiredEmployees-" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        List <FiredEmployee> listOfFiredEmployees = firedEmployeeService.getAll();
+        ExcelSaver saver = new ExcelSaver(listOfFiredEmployees);
+        saver.createExcelFile(response);
+    }
 
 }
