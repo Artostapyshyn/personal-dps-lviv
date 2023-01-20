@@ -56,6 +56,9 @@ public class Employee {
 	
 	@Column(name = "confirmation_token")
 	private String confirmationToken;
+	
+	@Column(name = "reset_token")
+	private String resetToken;
     
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

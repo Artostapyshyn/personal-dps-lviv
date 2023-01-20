@@ -8,7 +8,7 @@ import com.artostapyshyn.personaldpslviv.model.entity.Employee;
 
 public interface EmployeeService {
 
-	Employee saveAndFlush(EmployeeDto employeeDto);
+	Employee saveAndFlush(EmployeeDto employee);
 
 	void deleteById(Long id);
 	
@@ -19,4 +19,10 @@ public interface EmployeeService {
     EmployeeDto findByConfirmationToken(String confirmationToken);
 
 	Optional<Employee> findById(Long id);
+	
+	void updateResetToken(String token, String email);
+	
+	void updatePassword(Employee employee, String newPassword);
+	
+	Employee findByResetToken(String token);
 }

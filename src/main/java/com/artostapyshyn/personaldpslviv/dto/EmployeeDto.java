@@ -41,5 +41,7 @@ public class EmployeeDto
 	private Boolean enabled;
 	
 	private String confirmationToken;
+	
+	private String resetToken;
     
 }
