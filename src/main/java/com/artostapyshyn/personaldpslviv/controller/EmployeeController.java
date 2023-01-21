@@ -16,7 +16,9 @@ import com.artostapyshyn.personaldpslviv.exceptions.UserIdIsNotValidException;
 import com.artostapyshyn.personaldpslviv.model.service.EmployeeService;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @Controller
 @AllArgsConstructor
 @RequestMapping("/registered")
@@ -28,6 +30,7 @@ public class EmployeeController {
 	@GetMapping("/all")
 	public String getAll(Model model) {
 		model.addAttribute("users", employeeService.findAll());
+		log.info("Listing all employees");
 		return "registered/all";
 	}
 
@@ -36,7 +39,7 @@ public class EmployeeController {
 		employeeService.findById(id).ifPresent(o -> model.addAttribute("user", o));
 		 
 			if(id == null) {
-				throw new UserIdIsNotValidException(id);
+			log.error(new UserIdIsNotValidException(id));
 			}
 			
 		return "registered/edit";
@@ -54,16 +57,19 @@ public class EmployeeController {
         
         employeeService.saveAndFlush(empDto);
         
-		 if (needLogout)
+		 if (needLogout) {
+			 	log.info("Employee edited own details, logging out...");
 	            return "redirect:/logout";
-	        else
+		 } else {
+			 	log.info("Information was edited");
 	            return "redirect:/registered/all";
+		 }
 	}
 
 	@PostMapping("/delete/{id}")
 	public String postDelete(@PathVariable Long id) {
         employeeService.deleteById(id);
-            
+        log.info("Employee with id - " + id + " is deleted");    
         return "redirect:/registered/all";
 	}
 

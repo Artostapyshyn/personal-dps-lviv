@@ -16,7 +16,9 @@ import com.artostapyshyn.personaldpslviv.model.service.EmailService;
 import com.artostapyshyn.personaldpslviv.model.service.EmployeeService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @Controller
 public class EditPasswordController {
 
@@ -47,9 +49,12 @@ public class EditPasswordController {
 			mail.setMailContent(
 					"Для зміни пароля перейдіть за посиланням нижче:\n" + appUrl + "/change?token=" + token);
 			emailService.sendEmail(mail);
+			
+			log.info("Edit password email has been sent to" + email);
 			model.addAttribute("message", "Повідомлення з інструкцією надіслано. Перевірте електронну скриньку.");
 
 		} catch (UserNotFoundException ex) {
+			log.warn(ex);
 			model.addAttribute("error", ex.getMessage());
 		}
 
@@ -62,6 +67,7 @@ public class EditPasswordController {
 		model.addAttribute("token", token);
 
 		if (employee == null) {
+			log.warn("Couldn't find employee by reset token");
 			model.addAttribute("message", "Виникла помилка, спробуйте ще раз");
 			return "message";
 		}
@@ -78,12 +84,14 @@ public class EditPasswordController {
 		model.addAttribute("title", "Зміна пароля");
 
 		if (employee == null) {
+			log.warn("Couldn't find employee by reset token");
 			model.addAttribute("message", "Виникла помилка, спробуйте ще раз");
 			return "edit_password";
 		} else {
 			employeeService.updatePassword(employee, password);
 
 			model.addAttribute("message", "Ви успішно змінили пароль.");
+			log.info("Password changed successfully");
 		}
 
 		return "edit_password";

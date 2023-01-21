@@ -18,7 +18,9 @@ import com.artostapyshyn.personaldpslviv.model.service.EmployeeService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @Controller
 public class AuthController {
 
@@ -56,6 +58,7 @@ public class AuthController {
 
 		if (result.hasErrors()) {
 			model.addAttribute("user", employee);
+			log.warn("Error occured while registrating user");
 			return "registration";
 		}
 
@@ -71,6 +74,8 @@ public class AuthController {
 				+ appUrl + "/confirm?token=" + employee.getConfirmationToken());
 		emailService.sendEmail(mail);
  
+		log.info("Email has been sent to" + employee.getEmail());
+		
 		employeeService.saveAndFlush(employee);
 		return "confirm";
 	}
@@ -79,14 +84,17 @@ public class AuthController {
 	public String confirmRegistration(Model model, @RequestParam String token, @ModelAttribute("user") EmployeeDto employee) {
 
 		employee = employeeService.findByConfirmationToken(token);
+		log.info("Employee was found by confirmation token");
 		
 		if (employee == null) {
+			log.warn("Employee is null");
 			model.addAttribute("user", employee);
 			return "error";
 		}
 		employee.setEnabled(true);
 		employeeService.saveAndFlush(employee);
 		
+		log.info("User was confirmed, permitted to login");
 		return "redirect:/registration?success";
 	}
 

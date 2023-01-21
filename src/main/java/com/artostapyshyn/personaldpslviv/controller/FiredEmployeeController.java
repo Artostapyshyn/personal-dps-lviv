@@ -23,7 +23,9 @@ import com.artostapyshyn.personaldpslviv.model.service.FiredEmployeeService;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
+@Log4j2
 @Controller
 @AllArgsConstructor
 @RequestMapping("/fired")
@@ -35,27 +37,26 @@ public class FiredEmployeeController {
 	@GetMapping("/all")
 	public String getAll(Model model) {
 		model.addAttribute("firedusers", firedEmployeeService.getAll());
+		log.info("Listing all fired employees");
 		return "fired/fired_all";
 	}
 
 	@PostMapping("/delete/{id}")
 	public String postDelete(@PathVariable Long id) {
 		firedEmployeeService.deleteById(id);
-
+		log.info("Fired employee with id" + id + " is deleted");    
 		return "redirect:/fired/all";
 	}
 
 	@GetMapping("/add")
 	public String showAddForm(Model model) {
 		model.addAttribute("newfireduser", new FiredEmployee());
-
 		return "fired/add";
 	}
 
 	@PostMapping("/save")
 	public String saveFiredEmployee(@ModelAttribute("newfireduser") FiredEmployee firedEmployee) {
 		firedEmployeeService.saveEmployee(firedEmployee);
-
 		return "redirect:/fired/all";
 	}
 
@@ -64,7 +65,7 @@ public class FiredEmployeeController {
 		model.addAttribute("fireduser", firedEmployeeService.getFiredEmployeeById(id).orElse(null));
 
 		if (id == null) {
-			throw new UserIdIsNotValidException(id);
+			log.error(new UserIdIsNotValidException(id));
 		}
 
 		return "fired/fired_edit";
@@ -77,7 +78,7 @@ public class FiredEmployeeController {
 			model.addAttribute("fireduser", firedEmployee);
 
 		firedEmployeeService.saveEmployee(firedEmployee);
-
+		log.info("Fired employee details was edited and saved successfully");
 		return "redirect:/fired/all";
 	}
 	
@@ -94,6 +95,8 @@ public class FiredEmployeeController {
         List <FiredEmployee> listOfFiredEmployees = firedEmployeeService.getAll();
         ExcelSaver saver = new ExcelSaver(listOfFiredEmployees);
         saver.createExcelFile(response);
+        
+        log.info("Excel file was created, filename - " + "FiredEmployees- " + currentDateTime + ".xlsx");
     }
 
 }
