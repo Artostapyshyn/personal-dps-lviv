@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=5.0;">
+	<title>Підвищення кваліфікації</title>
+	<link th:href="@{/css/info-pages.css}" rel="stylesheet" type="text/css">
+	<link rel="icon" th:href="@{/img/logo.png}" type="image/icon type">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+</head>
+
+<body>
+	<div class="container">
+		<header th:insert="~{home :: header}">
+		</header>
+
+		<aside class="sidebar" th:insert="~{home :: aside}">
+		</aside>
+		<main class="main_content">
+			<h1 class="main_header">Підвищення кваліфікації</h1>
+			<div class="section-container">
+				<section>
+					<div class="docs_panel">
+
+						<div class="doc_content">
+							<div class=dropdown_block>
+								<a id="doc_button" href="#">Законодавство</a>
+								<div class="dropdown">
+									<a th:href="@{/documents/%D0%9F%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%B0_106.pdf}"
+										id="doc" target="_blank">Постанова № 106</a>
+
+								</div>
+							</div>
+							<a id="doc_button" th:href="@{/documents/metodychni_recomend.pdf}" target="_blank">Методичні
+								рекомендації по складанню індивідуальних програм</a>
+
+							<a id="doc_button"
+								th:href="@{/documents/%D1%96%D0%BD%D0%B4_%D0%BF%D1%80%D0%BE%D0%B3(%D0%94%D0%BE%D0%B4%D0%B0%D1%82%D0%BE%D0%BA%209%20%D0%B4%D0%BE%20%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BA%D1%83)-1.pdf}"
+								target="_blank">Бланки індивідуальної програми</a>
+
+							<a id="doc_button"
+								th:href="@{/documents/%D1%96%D0%BD%D0%B4_%D0%BF%D1%80%D0%BE%D0%B3(%D0%94%D0%BE%D0%B4%D0%B0%D1%82%D0%BE%D0%BA%209%20%D0%B4%D0%BE%20%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BA%D1%83)-1.pdf}"
+								target="_blank">Приклад заповнення індивідуальної програми</a>
+
+
+						</div>
+					</div>
+				</section>
+				<iframe
+					src="https://onedrive.live.com/embed?cid=F03035183CB806F3&amp;resid=F03035183CB806F3%21879&amp;authkey=AEsLlOHVFBIEWww&amp;em=2&amp;wdAr=1.7777777777777777"
+					width="490px" height="300px" frameborder="0" id="presentation">Це вбудований документ <a
+						target="_blank" href="https://office.com">Microsoft Office</a> на платформі <a target="_blank"
+						href="https://office.com/webapps">Office</a>.</iframe>
+
+				<section>
+					<div class="course_block">
+						<img th:src="@{/img/slides/3.jpg}" id="page_course">
+						<img th:src="@{/img/slides/4.jpg}" id="page_course">
+						<img th:src="@{/img/slides/5.jpg}" id="page_course">
+						<img th:src="@{/img/slides/6.jpg}" id="page_course">
+						<img th:src="@{/img/slides/7.jpg}" id="page_course">
+						<img th:src="@{/img/slides/8.jpg}" id="page_course">
+						<img th:src="@{/img/slides/9.jpg}" id="page_course">
+						<img th:src="@{/img/slides/10.jpg}" id="page_course">
+						<img th:src="@{/img/slides/11.jpg}" id="page_course">
+						<img th:src="@{/img/slides/12.jpg}" id="page_course">
+						<img th:src="@{/img/slides/13.jpg}" id="page_course">
+						<img th:src="@{/img/slides/14.jpg}" id="page_course">
+						<img th:src="@{/img/slides/15.jpg}" id="page_course">
+						<img th:src="@{/img/slides/16.jpg}" id="page_course">
+						<img th:src="@{/img/slides/17.jpg}" id="page_course">
+						<img th:src="@{/img/slides/18.jpg}" id="page_course">
+					</div>
+				</section>
+			</div>
+		</main>
+		<button class="scrollToTopBtn">
+			<img th:src="@{/img/arrow_top.png}" width="20">
+		</button>
+
+		<footer th:insert="~{home :: footer}">
+		</footer>
+	</div>
+	<script th:src="@{/js/scripts.js}"></script>
+</body>
+
+</html>

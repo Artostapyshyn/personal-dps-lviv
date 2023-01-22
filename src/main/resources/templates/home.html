@@ -14,22 +14,25 @@
 
 <body>
 	<div class="container">
-		<header>
-			<a href="/home">
+		<header th:fragment="header">
+			<a href="/">
 				<img th:src="@{/img/logo.png}" class="Logo" alt="Логотип ДПС"></a>
 			<h1>Головне управління ДПС у Львівській області<br>Управління персоналу</h1>
 			<nav>
 				<ul>
-					<li class="nav_option"><a href="/">Вступ та проходження державної служби</a></li>
-					<li class="nav_option"><a href="/">Ключові показники <br>та
+					<li class="nav_option"><a th:href="@{/info-pages/civil_service}">Вступ та проходження державної
+							служби</a></li>
+					<li class="nav_option"><a th:href="@{/info-pages/key_indicators_and_evaluation}">Ключові показники
+							<br>та
 							оцінювання</a></li>
-					<li class="nav_option"><a href="/">Підвищення<br> кваліфікаціїї</a></li>
-					<li class="nav_option"><a href="/">Відпустки</a></li>
+					<li class="nav_option"><a th:href="@{/info-pages/certification_training}">Підвищення<br>
+							кваліфікаціїї</a></li>
+					<li class="nav_option"><a th:href="@{/info-pages/vacation}">Відпустки</a></li>
 				</ul>
 			</nav>
 		</header>
 
-		<aside class="sidebar">
+		<aside class="sidebar" th:fragment="aside">
 			<div class="login_block">
 				<a href="/login">Вхід</a>
 				<i>|</i>
@@ -134,7 +137,6 @@
 					</table>
 				</div>
 			</div>
-			<script th:src="@{/js/scripts.js}"></script>
 			<div class="law">
 				<div class="qr_frame">
 					<a href="https://www.facebook.com/profile.php?id=100072744106926" target="_blank"><img class="qr"
@@ -247,7 +249,10 @@
 			</div>
 
 		</main>
-		<footer>
+		<button class="scrollToTopBtn">
+			<img th:src="@{/img/arrow_top.png}" width="20">
+		</button>
+		<footer th:fragment="footer">
 			<div class="contacts">
 				<h3>Контакти:</h3>
 				<ul>
@@ -274,10 +279,11 @@
 				</div>
 			</form>
 			<div class="copyrights">
-				<p>©2022 made by Artur Ostapyshyn</p>
+				<p>©2023 made by Artur Ostapyshyn</p>
 			</div>
 		</footer>
 	</div>
+	<script th:src="@{/js/scripts.js}"></script>
 </body>
 
 </html>

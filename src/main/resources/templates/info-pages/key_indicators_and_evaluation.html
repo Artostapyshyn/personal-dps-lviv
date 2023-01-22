@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=5.0;">
+	<title>Ключові показники та оцінювання</title>
+	<link th:href="@{/css/info-pages.css}" rel="stylesheet" type="text/css">
+	<link rel="icon" th:href="@{/img/logo.png}" type="image/icon type">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+</head>
+
+<body>
+	<div class="container">
+		<header th:insert="~{home :: header}">
+		</header>
+
+		<aside class="sidebar" th:insert="~{home :: aside}">
+		</aside>
+
+		<main class="main_content">
+			<h1 class="main_header">Ключові показники та оцінювання</h1>
+			<div class="section-container">
+				<section>
+					<div class="docs_panel">
+						<div class="doc_content">
+							<div class=dropdown_block>
+								<a id="doc_button" href="#">Законодавство</a>
+								<div class="dropdown">
+									<a th:href="@{/documents/%D0%9F%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%B0_640.pdf}"
+										id="doc" target="_blank">Постанова №640</a>
+									<a th:href="@{/documents/%D0%9D%D0%B0%D0%BA%D0%B0%D0%B7_217_20.pdf}" id="doc"
+										target="_blank">Наказ 217-20</a>
+									<a th:href="@{/documents/%D0%9D%D0%B0%D0%BA%D0%B0%D0%B7_174-20.pdf}" id="doc"
+										target="_blank">Наказ 174-20</a>
+								</div>
+							</div>
+							<a id="doc_button"
+								th:href="@{/documents/%D0%97%D0%B0%D0%B2%D0%B4%D0%B0%D0%BD%D0%BD%D1%8F%20%D1%96%20%D0%BA%D0%BB%D1%8E%D1%87%D0%BE%D0%B2%D1%96%20%D0%BF%D0%BE%D0%BA%D0%B0%D0%B7%D0%BD%D0%B8%D0%BA%D0%B8%20(%D0%91,%D0%92)%20(%D0%94%D0%BE%D0%B4%D0%B0%D1%82%D0%BE%D0%BA%207%20%D0%B4%D0%BE%20%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BA%D1%83).pdf}"
+								target="_blank">Завдання і ключові показники</a>
+
+							<a id="doc_button"
+								th:href="@{/documents/%D0%9F%D1%80%D0%B8%D0%BA%D0%BB%D0%B0%D0%B4%20%D0%B7%D0%B0%D0%BF%D0%BE%D0%B2%D0%BD%D0%B5%D0%BD%D0%BD%D1%8F%20%D0%BA%D0%BB%D1%8E%D1%87%D0%BE%D0%B2%D0%B8%D1%85%20%D0%BF%D0%BE%D0%BA%D0%B0%D0%B7%D0%BD%D0%B8%D0%BA%D1%96%D0%B2.pdf}"
+								target="_blank">Приклад заповнення ключових показників</a>
+
+							<a id="doc_button"
+								th:href="@{/documents/%D0%91%D1%96%D0%B1%D0%BB%D1%96%D0%BE%D1%82%D0%B5%D0%BA%D0%B0%20%D0%9A%D0%A0I.pdf}"
+								target="_blank">Бібліотека KPI</a>
+
+							<a id="doc_button"
+								th:href="@{/documents/%D0%A0%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D0%B8%20%D0%B2%D0%B8%D0%BA%D0%BE%D0%BD%D0%B0%D0%BD%D0%BD%D1%8F%20%D0%B7%D0%B0%D0%B2%D0%B4%D0%B0%D0%BD%D1%8C%20%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D0%B2%D0%BD%D0%B8%D0%BC%20%D1%81%D0%BB%D1%83%D0%B6%D0%B1%D0%BE%D0%B2%D1%86%D0%B5%D0%BC%20(%D0%94%D0%BE%D0%B4%D0%B0%D1%82%D0%BE%D0%BA%208%20%D0%B4%D0%BE%20%D0%9F%D0%BE%D1%80%D1%8F%D0%B4%D0%BA%D1%83).pdf}"
+								target="_blank">Бланки оцінювання</a>
+
+							<a id="doc_button"
+								th:href="@{/documents/%D0%9F%D1%80%D0%B8%D0%BA%D0%BB%D0%B0%D0%B4%20%D0%B7%D0%B0%D0%BF%D0%BE%D0%B2%D0%BD%D0%B5%D0%BD%D0%BD%D1%8F%20%D0%B1%D0%BB%D0%B0%D0%BD%D0%BA%D1%83%20%D0%BE%D1%86%D1%96%D0%BD%D1%8E%D0%B2%D0%B0%D0%BD%D0%BD%D1%8F.pdf}"
+								target="_blank">Приклад заповнення бланку оцінювання</a>
+
+						</div>
+					</div>
+				</section>
+				<section>
+					<iframe
+						src="https://onedrive.live.com/embed?cid=F03035183CB806F3&amp;resid=F03035183CB806F3%21873&amp;authkey=ADbQ1BC6XhmmjrY&amp;em=2&amp;wdAr=1.7777777777777777"
+						width="490px" height="300px" frameborder="0" id="presentation">Це вбудований документ <a
+							target="_blank" href="https://office.com">Microsoft Office</a> на платформі <a
+							target="_blank" href="https://office.com/webapps">Office</a>.</iframe>
+				</section>
+			</div>
+			<section>
+				<div class="instructions_container">
+
+					<a href="#img1">
+						<img th:src="@{/img/Algoritm_protseduri_ots_nyuvannya_dlya_ker_vnik_v.jpg}" id="instructions">
+					</a>
+					<a href="#" class="lightbox" id="img1">
+						<span
+							style="background-image: url(/img/Algoritm_protseduri_ots_nyuvannya_dlya_ker_vnik_v.jpg)"></span>
+					</a>
+
+					<a href="#img2">
+						<img th:src="@{/img/Algoritm_ots_nyuvannya_dlya_derzhavnih_sluzhbovts_v.jpg}" id="instructions">
+					</a>
+					<a href="#" class="lightbox" id="img2">
+						<span
+							style="background-image: url(/img/Algoritm_ots_nyuvannya_dlya_derzhavnih_sluzhbovts_v.jpg)"></span>
+					</a>
+
+
+					<a href="#img3">
+						<img th:src="@{/img/Algoritm_protseduri_ots_nyuvannya_dlya_sluzhb_upravl_nnya_personalom.jpg}"
+							id="instructions">
+					</a>
+					<a href="#" class="lightbox" id="img3">
+						<span
+							style="background-image: url(/img/Algoritm_protseduri_ots_nyuvannya_dlya_sluzhb_upravl_nnya_personalom.jpg)"></span>
+					</a>
+				</div>
+
+			</section>
+		</main>
+		<button class="scrollToTopBtn">
+			<img th:src="@{/img/arrow_top.png}" width="20">
+		</button>
+
+		<footer th:insert="~{home :: footer}">
+		</footer>
+	</div>
+	<script th:src="@{/js/scripts.js}"></script>
+</body>
+
+</html>

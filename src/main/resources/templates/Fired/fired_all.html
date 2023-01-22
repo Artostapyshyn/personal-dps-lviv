@@ -4,19 +4,16 @@
 <head>
 	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1" name="viewport">
-	<title>Працівники</title>
-	<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-		integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" rel="stylesheet">
-	<link rel="icon" th:href="@{/img/logo.png}" type="image/icon type">	
+	<title>Звільнені працівники</title>
+	<link rel="stylesheet" th:href="@{/css/all.css}">
+	<link rel="icon" th:href="@{/img/logo.png}" type="image/icon type">
 </head>
 
 <body>
-	<div class="text-center">
-		<h1>Працівники</h1>
-	</div>
+	<h1>Звільнені працівники</h1>
 
-	<div class="d-flex justify-content-center">
-		<table class="table table-striped" style="width: 40rem">
+	<div class="table-wrapper">
+		<table class="fl-table">
 			<thead>
 				<tr>
 					<th scope="col">№</th>
@@ -26,7 +23,7 @@
 					<th scope="col">Номер телефону</th>
 					<th scope="col">Дата народження</th>
 					<th scope="col">Причина звільнення</th>
-					<th scope="col">Дата звільнення</th> 
+					<th scope="col">Дата звільнення</th>
 					<th scope="col"></th>
 				</tr>
 			</thead>
@@ -34,25 +31,25 @@
 				<tr th:each="fireduser : ${firedusers}">
 					<th scope="row" th:text="${fireduser.id}"></th>
 					<th scope="row" th:text="${fireduser.firstName}"></th>
-					<th scope="row" th:text="${fireduser.lastName}"></th> 
-					<th scope="row" th:text="${fireduser.department}"></th> 
+					<th scope="row" th:text="${fireduser.lastName}"></th>
+					<th scope="row" th:text="${fireduser.department}"></th>
 					<th scope="row" th:text="${fireduser.phoneNumber}"></th>
 					<th scope="row" th:text="${fireduser.birthDate}"></th>
 					<th scope="row" th:text="${fireduser.firingReason}"></th>
 					<th scope="row" th:text="${fireduser.firingDate}"></th>
 					<td>
 						<form th:action="@{'edit/{id}'(id=${fireduser.id})}">
-							<button type="submit" class="btn btn-secondary">Змінити</button>
+							<button type="submit" class="edit-button">Змінити</button>
 						</form>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-	<div class="text-center">
-			<a class="btn btn-primary" th:href="@{export}">Завантажити таблицю у форматі Excel</a>
-			<a class="btn btn-primary" th:href="@{add}">Додати</a>
-			<a class="btn btn-primary" th:href="@{/profile}">Назад</a>
+	<div class="links">
+		<a th:href="@{export}">Завантажити таблицю у форматі Excel</a>
+		<a th:href="@{add}">Додати новий запис</a>
+		<a th:href="@{/profile}">Назад</a>
 	</div>
 </body>
 
