@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.artostapyshyn.personaldpslviv.exceptions.UserIdIsNotValidException;
 import com.artostapyshyn.personaldpslviv.model.entity.FiredEmployee;
 import com.artostapyshyn.personaldpslviv.model.repository.FiredEmployeeRepository;
 import com.artostapyshyn.personaldpslviv.model.service.FiredEmployeeService;
@@ -26,7 +27,7 @@ public class FiredEmployeeServiceImpl implements FiredEmployeeService {
 
     @Override
     public Optional<FiredEmployee> getFiredEmployeeById(Long id) {
-        return firedEmployeeRepository.findById(id);
+        return Optional.ofNullable(firedEmployeeRepository.findById(id).orElseThrow(() -> new UserIdIsNotValidException(id)));
     }
     
     @Override

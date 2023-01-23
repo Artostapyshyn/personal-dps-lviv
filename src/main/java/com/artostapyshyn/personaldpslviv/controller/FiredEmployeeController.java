@@ -9,7 +9,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -51,12 +50,15 @@ public class FiredEmployeeController {
 	@GetMapping("/add")
 	public String showAddForm(Model model) {
 		model.addAttribute("newfireduser", new FiredEmployee());
+		log.info("Fired employee added");
+		
 		return "fired/add";
 	}
 
 	@PostMapping("/save")
 	public String saveFiredEmployee(@ModelAttribute("newfireduser") FiredEmployee firedEmployee) {
 		firedEmployeeService.saveEmployee(firedEmployee);
+		log.info("Fired employee with id -" + firedEmployee.getId() + " was saved");
 		return "redirect:/fired/all";
 	}
 
@@ -65,17 +67,14 @@ public class FiredEmployeeController {
 		model.addAttribute("fireduser", firedEmployeeService.getFiredEmployeeById(id).orElse(null));
 
 		if (id == null) {
-			log.error(new UserIdIsNotValidException(id));
+			throw new UserIdIsNotValidException(id);
 		}
 
 		return "fired/fired_edit";
 	}
 
 	@PostMapping("/edit/{id}")
-	public String postEdit(@PathVariable Long id, @ModelAttribute("fireduser") FiredEmployee firedEmployee,
-			BindingResult result, Model model) {
-		if (HelperController.hasErrors(result, model))
-			model.addAttribute("fireduser", firedEmployee);
+	public String postEdit(@PathVariable Long id, @ModelAttribute("fireduser") FiredEmployee firedEmployee, Model model) {
 
 		firedEmployeeService.saveEmployee(firedEmployee);
 		log.info("Fired employee details was edited and saved successfully");

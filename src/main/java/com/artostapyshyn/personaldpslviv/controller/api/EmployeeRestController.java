@@ -27,10 +27,7 @@ public class EmployeeRestController {
 	private final EmployeeService employeeService;
 
 	@GetMapping
-	ResponseEntity<Map<String, Object>> all(@PathParam("id") Long id) {
-		if (id != null)
-			findById(id);
-
+	ResponseEntity<Map<String, Object>> all() {
 		Map<String, Object> answer = new HashMap<>();
 		answer.put("result", "SUCCESSFUL");
 		answer.put("body", employeeService.findAll());
@@ -38,36 +35,26 @@ public class EmployeeRestController {
 		return new ResponseEntity<>(answer, HttpStatus.OK);
 	}
 
-	void findById(Long id) {
+	@GetMapping("/{id}")
+	ResponseEntity<Map<String, Object>> findById(@PathParam("id") Long id) {
 		Map<String, Object> answer = new HashMap<>();
 		Optional<Employee> optionalEmployee = employeeService.findById(id);
 
-		if (optionalEmployee.isEmpty()) {
-			answer.put("result", "Error");
-			answer.put("body", new RuntimeException("Couldn't find user with id - " + id));
-		} else {
-			answer.put("result", "SUCCESSFUL");
-			answer.put("body", optionalEmployee.get());
-		}
+		answer.put("result", "SUCCESSFUL");
+		answer.put("body", optionalEmployee.get());
+		return new ResponseEntity<>(answer, HttpStatus.OK);
 	}
 
 	@DeleteMapping
 	ResponseEntity<Map<String, Object>> delete(@PathParam("id") Long id) {
 		Map<String, Object> answer = new HashMap<>();
-		Optional<Employee> optionalEmployee = Optional.empty();
 		if (id != null)
-			optionalEmployee = employeeService.findById(id);
+			employeeService.findById(id);
 
-		if (optionalEmployee.isEmpty()) {
-			answer.put("result", "Error");
-			answer.put("body", new RuntimeException("Couldn't find user with id - " + id));
-			return new ResponseEntity<>(answer, HttpStatus.BAD_REQUEST);
-		} else {
-			employeeService.deleteById(id);
-			answer.put("result", "SUCCESSFUL");
-			answer.put("body", "User " + id + " has been deleted");
-			return new ResponseEntity<>(answer, HttpStatus.ACCEPTED);
-		}
+		employeeService.deleteById(id);
+		answer.put("result", "SUCCESSFUL");
+		answer.put("body", "User " + id + " has been deleted");
+		return new ResponseEntity<>(answer, HttpStatus.ACCEPTED);
 	}
 
 }

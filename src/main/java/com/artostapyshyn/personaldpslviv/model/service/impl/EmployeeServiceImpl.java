@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.artostapyshyn.personaldpslviv.dto.EmployeeDto;
+import com.artostapyshyn.personaldpslviv.exceptions.UserIdIsNotValidException;
 import com.artostapyshyn.personaldpslviv.exceptions.UserNotFoundException;
 import com.artostapyshyn.personaldpslviv.model.entity.Employee;
 import com.artostapyshyn.personaldpslviv.model.entity.Role;
@@ -101,7 +102,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public Optional<Employee> findById(Long id) {
-		return employeeRepository.findById(id);
+		return Optional.ofNullable(employeeRepository.findById(id).orElseThrow(() -> new UserIdIsNotValidException(id)));
 	}
 
 	@Override

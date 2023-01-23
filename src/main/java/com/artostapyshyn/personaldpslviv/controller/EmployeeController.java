@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,40 +36,41 @@ public class EmployeeController {
 	@GetMapping("/edit/{id}")
 	public String getEdit(@PathVariable Long id, Model model) {
 		employeeService.findById(id).ifPresent(o -> model.addAttribute("user", o));
-		 
-			if(id == null) {
-			log.error(new UserIdIsNotValidException(id));
-			}
-			
+
+		if (id == null) {
+			throw new UserIdIsNotValidException(id);
+		}
+		
 		return "registered/edit";
 	}
 
 	@PostMapping("/edit/{id}")
-	public String postEdit(@PathVariable Long id, @ModelAttribute("user") EmployeeDto empDto, BindingResult result, Model model) {
-	    if (HelperController.hasErrors(result, model))
-	     	model.addAttribute("user", empDto);
-		
+	public String postEdit(@PathVariable Long id, @ModelAttribute("user") EmployeeDto empDto, Model model) {
 		String currentEmployee = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		boolean needLogout = false;
+		needLogout = empDto.getEmail().equals(currentEmployee);
 		
-        boolean needLogout = false;
-        needLogout = empDto.getEmail().equals(currentEmployee);
-        
-        employeeService.saveAndFlush(empDto);
-        
-		 if (needLogout) {
-			 	log.info("Employee edited own details, logging out...");
-	            return "redirect:/logout";
-		 } else {
-			 	log.info("Information was edited");
-	            return "redirect:/registered/all";
-		 }
+		employeeService.saveAndFlush(empDto);
+
+		if (needLogout) {
+			log.info("Employee edited own details, logging out...");
+			return "redirect:/logout";
+		} else {
+			log.info("Information was edited");
+			return "redirect:/registered/all";
+		}
 	}
 
 	@PostMapping("/delete/{id}")
 	public String postDelete(@PathVariable Long id) {
-        employeeService.deleteById(id);
-        log.info("Employee with id - " + id + " is deleted");    
-        return "redirect:/registered/all";
+		if (id == null) {
+			throw new UserIdIsNotValidException(id);
+		}
+		
+		employeeService.deleteById(id);
+		log.info("Employee with id - " + id + " is deleted");
+		return "redirect:/registered/all";
 	}
 
 }

@@ -13,12 +13,12 @@ body {
   box-shadow: 0 5px 10px rgba(0,0,0,0.2);
   perspective: 2700px;
 }
-
-textarea {
-  width: 300px;
+ 
+h1, .error {
+  color:#ffff;
   font-family: "Poppins" , sans-serif;
 } 
- 
+
 a {
   border-radius: 15px; 
   padding: 8px 16px;
@@ -34,7 +34,6 @@ a {
 }
 
 a:hover {
-  -webkit-transition: all 800ms ease; 
   background: black;
   color: white;
 }
