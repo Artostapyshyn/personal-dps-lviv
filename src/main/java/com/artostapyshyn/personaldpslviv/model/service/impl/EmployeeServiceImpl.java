@@ -3,7 +3,6 @@ package com.artostapyshyn.personaldpslviv.model.service.impl;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -72,7 +71,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public List<EmployeeDto> findAll() {
 		List<Employee> employees = employeeRepository.findAll();
-		return employees.stream().map((employee) -> convertEntityToDto(employee)).collect(Collectors.toList());
+		return employees.stream().map((employee) -> convertEntityToDto(employee)).toList();
 	}
 
 	private EmployeeDto convertEntityToDto(Employee employee) {
@@ -84,6 +83,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employeeDto.setBirthDate(employee.getBirthDate());
 		employeeDto.setDepartment(employee.getDepartment());
 		employeeDto.setEmail(employee.getEmail());
+		employeeDto.setPassword(employee.getPassword());
 		employeeDto.setEnabled(employee.getEnabled());
 		employeeDto.setConfirmationToken(employee.getConfirmationToken());
 		return employeeDto;

@@ -11,9 +11,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+
  
 @Configuration
 @EnableWebSecurity
+@SecurityScheme(name="personaldpslviv", scheme="basic", type=SecuritySchemeType.HTTP, in=SecuritySchemeIn.HEADER)
 public class SecurityConfig {
 
     @Autowired
@@ -31,6 +36,7 @@ public class SecurityConfig {
     		.disable()
     		.authorizeHttpRequests()
     		.requestMatchers("/").permitAll() 
+    		.requestMatchers("/swagger-ui/**","/v3/api-docs/**").permitAll()
     		.requestMatchers("/info-pages/**").permitAll()
     		.requestMatchers("/css/**").permitAll()
     		.requestMatchers("/js/**").permitAll()
