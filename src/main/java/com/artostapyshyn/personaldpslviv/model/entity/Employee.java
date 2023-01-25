@@ -3,6 +3,8 @@ package com.artostapyshyn.personaldpslviv.model.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -59,12 +61,13 @@ public class Employee {
 	
 	@Column(name = "reset_token")
 	private String resetToken;
-    
+	
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name="employees_roles",
-            joinColumns={@JoinColumn(name="EMPLOYEE_ID", referencedColumnName="ID")},
-            inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
+            joinColumns={@JoinColumn(name="employee_id", referencedColumnName="id")},
+            inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="id")})
+    @JsonIgnore
     private List<Role> roles = new ArrayList<>();
     
 }
