@@ -98,6 +98,10 @@ body{
 }
 
 @media  (min-width: 700px) and (max-width: 1100px){
+.main .card table{
+    font-size: 14px;
+}
+
 .link_block{
     display:grid;
     grid-template-columns: 60px 60px; 
@@ -110,6 +114,10 @@ body{
 }
 
 @media  (max-width: 700px){
+.main .card table{
+    font-size: 13px;
+}
+
 .link_block{
     display:grid;
     grid-template-columns: 50px;

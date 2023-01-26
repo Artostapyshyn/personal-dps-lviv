@@ -25,11 +25,39 @@
 		<h2>Інформація</h2>
 		<div class="card">
 			<div class="card-body">
+			
+				<table>
+					<tbody>
+						<tr>
+							<td>Ім'я</td>
+							<td th:text="${firstName}"/>
+						</tr>
+						<tr>
+							<td>Прізвище</td>
+							<td th:text="${lastName}"/>
+						</tr>
+						<tr>
+							<td>Електронна пошта</td>
+							<td th:text="${email}"/>
+						</tr>
+						<tr>
+							<td>Номер телефону</td>
+							<td th:text="${phoneNumber}"/>
+						</tr>
+						<tr>
+							<td>Підрозділ</td>
+							<td th:text="${department}"/>
+						</tr>
+						<tr>
+							<td>Дата народження</td>
+							<td th:text="${birthDate}"/>
+						</tr>
 
-
+					</tbody>
+				</table>
 			</div>
 		</div>
-
+		 
 		<h2>Основне</h2>
 		<div class="card">
 			<div class="card-body">

@@ -3,6 +3,8 @@ package com.artostapyshyn.personaldpslviv.controller;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.artostapyshyn.personaldpslviv.dto.EmployeeDto;
 import com.artostapyshyn.personaldpslviv.model.Mail;
+import com.artostapyshyn.personaldpslviv.model.entity.Employee;
 import com.artostapyshyn.personaldpslviv.model.service.EmailService;
 import com.artostapyshyn.personaldpslviv.model.service.EmployeeService;
 
@@ -68,7 +71,23 @@ public class AuthController {
 	}
 
 	@GetMapping("/profile")
-	public String getSuccessPage() {
+	public String getSuccessPage(@ModelAttribute("user") @Valid EmployeeDto employeeDto, BindingResult result, Model model) {
+		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+		String email = loggedInUser.getName();
+
+		Employee employee = employeeService.findByEmail(email);
+		String firstName = employee.getFirstName();
+		String lastName = employee.getLastName();
+		String department = employee.getDepartment();
+		String phoneNumber = employee.getPhoneNumber();
+		String birthDate = employee.getBirthDate();
+		
+		model.addAttribute("firstName", firstName);
+		model.addAttribute("lastName", lastName);
+		model.addAttribute("department", department);
+		model.addAttribute("phoneNumber", phoneNumber);
+		model.addAttribute("birthDate", birthDate);
+		model.addAttribute("email", email);
 		return "profile";
 	}
 
