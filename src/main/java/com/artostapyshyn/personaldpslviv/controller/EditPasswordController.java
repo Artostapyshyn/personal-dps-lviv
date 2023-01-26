@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.artostapyshyn.personaldpslviv.exceptions.UserNotFoundException;
+import com.artostapyshyn.personaldpslviv.exceptions.EmployeeNotFoundException;
 import com.artostapyshyn.personaldpslviv.model.Mail;
 import com.artostapyshyn.personaldpslviv.model.entity.Employee;
 import com.artostapyshyn.personaldpslviv.model.service.EmailService;
@@ -43,7 +43,7 @@ public class EditPasswordController {
 			String appUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
 
 			Mail mail = new Mail();
-			mail.setMailFrom("artostapyshyn@gmail.com");
+			mail.setMailFrom("System@gmail.com");
 			mail.setMailTo(email);
 			mail.setMailSubject("Змніна пароля");
 			mail.setMailContent(
@@ -53,7 +53,7 @@ public class EditPasswordController {
 			log.info("Edit password email has been sent to" + email);
 			model.addAttribute("message", "Повідомлення з інструкцією надіслано. Перевірте електронну скриньку.");
 
-		} catch (UserNotFoundException ex) {
+		} catch (EmployeeNotFoundException ex) {
 			log.warn(ex);
 			model.addAttribute("error", ex.getMessage());
 		}

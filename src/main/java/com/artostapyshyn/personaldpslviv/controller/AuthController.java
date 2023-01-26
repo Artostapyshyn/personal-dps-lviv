@@ -38,26 +38,6 @@ public class AuthController {
 		return "home";
 	}
 	
-	@GetMapping("/info-pages/civil_service")
-	public String getCivilServicePage() {
-		return "info-pages/civil_service";
-	}
-	
-	@GetMapping("/info-pages/certification_training")
-	public String getCertificationPage() {
-		return "info-pages/certification_training";
-	}
-	
-	@GetMapping("/info-pages/vacation")
-	public String getVacationPage() {
-		return "info-pages/vacation";
-	}
-
-	@GetMapping("/info-pages/key_indicators_and_evaluation")
-	public String getKeyIndicatorssPage() {
-		return "/info-pages/key_indicators_and_evaluation";
-	}
-	
 	@GetMapping("/login")
 	public String getLoginPage() {
 		return "login";
@@ -94,13 +74,13 @@ public class AuthController {
 	@PostMapping("/registration/save")
 	public String postRegisterPage(@Valid @ModelAttribute("user") EmployeeDto employee, BindingResult result,
 			Model model, HttpServletRequest request) {
-
+ 
 		if (result.hasErrors()) {
 			model.addAttribute("user", employee);
 			log.warn("Error occured while registrating user");
 			return "registration";
 		}
-
+ 
 		employee.setConfirmationToken(UUID.randomUUID().toString());
 		
 		String appUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
@@ -108,12 +88,12 @@ public class AuthController {
 		Mail mail = new Mail();
 		mail.setMailFrom("System@gmail.com");
 		mail.setMailTo(employee.getEmail());
-		mail.setMailSubject("Email Confirmation");
-		mail.setMailContent("To confirm you email, please click the link below and login:\n"
+		mail.setMailSubject("Підтвердження елeктронної пошти");
+		mail.setMailContent("Для підтвердження електронної пошти, перейдіть за посиланням нижче та увійдіть у персональний кабінет:\n"
 				+ appUrl + "/confirm?token=" + employee.getConfirmationToken());
 		emailService.sendEmail(mail);
  
-		log.info("Email has been sent to" + employee.getEmail());
+		log.info("Email has been sent to " + employee.getEmail());
 		
 		employeeService.saveAndFlush(employee);
 		return "confirm";
@@ -133,7 +113,7 @@ public class AuthController {
 		employee.setEnabled(true);
 		employeeService.saveAndFlush(employee);
 		
-		log.info("User was confirmed, permitted to login");
+		log.info("Employee was confirmed, permitted to login");
 		return "redirect:/registration?success";
 	}
 

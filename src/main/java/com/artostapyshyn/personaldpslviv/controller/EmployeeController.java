@@ -1,6 +1,7 @@
 package com.artostapyshyn.personaldpslviv.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.artostapyshyn.personaldpslviv.dto.EmployeeDto;
-import com.artostapyshyn.personaldpslviv.exceptions.UserIdIsNotValidException;
+import com.artostapyshyn.personaldpslviv.exceptions.EmployeeIdIsNotValidException;
+import com.artostapyshyn.personaldpslviv.model.entity.Employee;
 import com.artostapyshyn.personaldpslviv.model.service.EmployeeService;
 
 import lombok.AllArgsConstructor;
@@ -38,7 +40,7 @@ public class EmployeeController {
 		employeeService.findById(id).ifPresent(o -> model.addAttribute("user", o));
 
 		if (id == null) {
-			throw new UserIdIsNotValidException(id);
+			throw new EmployeeIdIsNotValidException(id);
 		}
 		
 		return "registered/edit";
@@ -63,14 +65,30 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/delete/{id}")
-	public String postDelete(@PathVariable Long id) {
+	public String postDelete(@PathVariable Long id, @ModelAttribute("user") EmployeeDto empDto) {
 		if (id == null) {
-			throw new UserIdIsNotValidException(id);
+			throw new EmployeeIdIsNotValidException(id);
 		}
 		
+		Authentication loggedInEmployee = SecurityContextHolder.getContext().getAuthentication();
+		String email = loggedInEmployee.getName();
+
+		Employee employee = employeeService.findByEmail(email);
+		Long currentEmployee = employee.getId();
+
 		employeeService.deleteById(id);
 		log.info("Employee with id - " + id + " is deleted");
-		return "redirect:/registered/all";
+		
+		boolean needLogout = false;
+		needLogout = empDto.getId().equals(currentEmployee);
+		
+		if (needLogout) {
+			log.info("Employee deleted own details, logging out...");
+			return "redirect:/logout";
+		} else {
+			log.info("Employee was deleted");
+			return "redirect:/registered/all";
+		}
 	}
 
 }
