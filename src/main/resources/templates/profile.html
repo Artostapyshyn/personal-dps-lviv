@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" 
+ xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
 
 <head>
 	<meta charset="UTF-8">
@@ -26,8 +27,22 @@
 		<div class="card">
 			<div class="card-body">
 			
+			 <div sec:authorize="hasRole('ADMIN')"> 
+				<h6>Адміністратор</h6>
+			</div>
+			<div sec:authorize="hasRole('USER')"> 
+				<h6>Користувач</h6>
+			</div>
+			
+			 <form th:action="@{'/registered/edit/{id}'(id=${id})}">
+					<input type="image" th:src="@{/img/pencil.png}"></input>
+			</form>
 				<table>
 					<tbody>
+						<tr>
+							<td>№</td>
+							<td th:text="${id}"/>
+						</tr>
 						<tr>
 							<td>Ім'я</td>
 							<td th:text="${firstName}"/>
@@ -52,7 +67,6 @@
 							<td>Дата народження</td>
 							<td th:text="${birthDate}"/>
 						</tr>
-
 					</tbody>
 				</table>
 			</div>

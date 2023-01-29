@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" 
+ xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
 
 <head>
 	<title>Сторінка не знайдена</title>
@@ -15,7 +16,7 @@
 			<div class="error_message">
 				<div class="error" th:text="${status}"/>
 				<h1>Виникла помилка, спробуйте ще раз.</h1>
-        		<div class="error" th:text="${exception}"/>
+        		<div class="error" sec:authorize="hasRole('ADMIN')" th:text="${exception}"/>
 				<h3><a href="/">На головну</a></h3>
 			</div>
 		</center>

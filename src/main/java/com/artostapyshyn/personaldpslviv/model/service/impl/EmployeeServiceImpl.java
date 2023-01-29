@@ -10,8 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.artostapyshyn.personaldpslviv.dto.EmployeeDto;
-import com.artostapyshyn.personaldpslviv.exceptions.UserIdIsNotValidException;
-import com.artostapyshyn.personaldpslviv.exceptions.UserNotFoundException;
+import com.artostapyshyn.personaldpslviv.exceptions.EmployeeIdIsNotValidException;
+import com.artostapyshyn.personaldpslviv.exceptions.EmployeeNotFoundException;
 import com.artostapyshyn.personaldpslviv.model.entity.Employee;
 import com.artostapyshyn.personaldpslviv.model.entity.Role;
 import com.artostapyshyn.personaldpslviv.model.repository.EmployeeRepository;
@@ -38,7 +38,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employee = new Employee();
 			employee.setPassword(passwordEncoder.encode(employeeDto.getPassword()));
 
-			Role role = roleRepository.findByName("ROLE_ADMIN");
+			Role role = roleRepository.findByName("ROLE_USER");
 
 			if (role == null) {
 				role = checkRoleExist();
@@ -91,7 +91,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	private Role checkRoleExist() {
 		Role role = new Role();
-		role.setName("ROLE_ADMIN");
+		role.setName("ROLE_USER");
 		return roleRepository.save(role);
 	}
 
@@ -102,7 +102,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public Optional<Employee> findById(Long id) {
-		return Optional.ofNullable(employeeRepository.findById(id).orElseThrow(() -> new UserIdIsNotValidException(id)));
+		return Optional.ofNullable(employeeRepository.findById(id).orElseThrow(() -> new EmployeeIdIsNotValidException(id)));
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employee.setResetToken(token);
 			employeeRepository.save(employee);
 		} else {
-			throw new UserNotFoundException(email);
+			throw new EmployeeNotFoundException(email);
 		}
 	}
 

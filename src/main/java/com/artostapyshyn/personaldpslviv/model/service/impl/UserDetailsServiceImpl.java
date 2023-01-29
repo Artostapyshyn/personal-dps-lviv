@@ -1,7 +1,7 @@
 package com.artostapyshyn.personaldpslviv.model.service.impl;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,7 +17,7 @@ import com.artostapyshyn.personaldpslviv.model.repository.EmployeeRepository;
 
 
 @Service
-public class EmployeeDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
@@ -26,16 +26,17 @@ public class EmployeeDetailsServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Employee employee = employeeRepository.findByEmail(email);
 		if (employee != null) {
-			return new org.springframework.security.core.userdetails.User(employee.getEmail(), employee.getPassword(),
+			return new org.springframework.security.core.userdetails.User
+					(employee.getEmail(), employee.getPassword(),
 					mapRolesToAuthorities(employee.getRoles()));
 		} else {
 			throw new UsernameNotFoundException("User doesn't exists");
 		}
 	}
 
-	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
-		Collection<? extends GrantedAuthority> mapRoles = roles.stream()
-				.map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(List<Role> list) {
+		List<SimpleGrantedAuthority> mapRoles = list.stream()
+				.map(role -> new SimpleGrantedAuthority(role.getName())).toList();
 		return mapRoles;
 	}
 }

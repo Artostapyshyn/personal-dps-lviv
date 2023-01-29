@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
 
 <head>
 	<meta charset="utf-8">
@@ -23,7 +23,7 @@
 					<th scope="col">Електронна пошта</th>
 					<th scope="col">Дата народження</th>
 
-					<th scope="col"></th>
+					<th scope="col" sec:authorize="hasRole('ADMIN')"></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -35,11 +35,11 @@
 					<th scope="row" th:text="${user.phoneNumber}"></th>
 					<th scope="row" th:text="${user.email}"></th>
 					<th scope="row" th:text="${user.birthDate}"></th>
-					<td>
+					<th sec:authorize="hasRole('ADMIN')">
 						<form th:action="@{'edit/{id}'(id=${user.id})}">
 							<button class="edit-button" type="submit">Змінити</button>
 						</form>
-					</td>
+					</th>
 				</tr>
 			</tbody>
 		</table>

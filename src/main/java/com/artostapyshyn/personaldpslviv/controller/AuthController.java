@@ -54,14 +54,16 @@ public class AuthController {
 	public String getSuccessPage(@ModelAttribute("user") @Valid EmployeeDto employeeDto, BindingResult result, Model model) {
 		Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
 		String email = loggedInUser.getName();
-
+		
 		Employee employee = employeeService.findByEmail(email);
+		Long id = employee.getId();
 		String firstName = employee.getFirstName();
 		String lastName = employee.getLastName();
 		String department = employee.getDepartment();
 		String phoneNumber = employee.getPhoneNumber();
 		String birthDate = employee.getBirthDate();
-		
+				
+		model.addAttribute("id", id);
 		model.addAttribute("firstName", firstName);
 		model.addAttribute("lastName", lastName);
 		model.addAttribute("department", department);

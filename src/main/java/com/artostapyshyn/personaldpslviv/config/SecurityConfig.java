@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,6 +20,7 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 @Configuration
 @EnableWebSecurity
 @SecurityScheme(name="personaldpslviv", scheme="basic", type=SecuritySchemeType.HTTP, in=SecuritySchemeIn.HEADER)
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     @Autowired
@@ -43,7 +45,7 @@ public class SecurityConfig {
 			.requestMatchers("/img/**").permitAll()
 			.requestMatchers("/documents/**").permitAll()
 			.requestMatchers("/registration/**").permitAll()
-			.requestMatchers("/profile").hasRole("ADMIN")
+			.requestMatchers("/profile").hasAnyRole("ADMIN", "USER")
 			.anyRequest()
 			.authenticated()
 			.and()

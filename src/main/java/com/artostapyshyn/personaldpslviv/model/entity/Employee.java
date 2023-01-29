@@ -53,7 +53,7 @@ public class Employee {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "enabled", nullable = false)
+    @Column(name = "enabled")
 	private Boolean enabled;
 	
 	@Column(name = "confirmation_token")

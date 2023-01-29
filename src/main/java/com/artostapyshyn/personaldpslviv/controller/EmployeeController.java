@@ -1,6 +1,7 @@
 package com.artostapyshyn.personaldpslviv.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -23,11 +24,13 @@ import lombok.extern.log4j.Log4j2;
 @Controller
 @AllArgsConstructor
 @RequestMapping("/registered")
+@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 public class EmployeeController {
 
 	@Autowired
 	private EmployeeService employeeService;
-
+	
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	@GetMapping("/all")
 	public String getAll(Model model) {
 		model.addAttribute("users", employeeService.findAll());
@@ -45,25 +48,16 @@ public class EmployeeController {
 		
 		return "registered/edit";
 	}
-
+	
 	@PostMapping("/edit/{id}")
 	public String postEdit(@PathVariable Long id, @ModelAttribute("user") EmployeeDto empDto, Model model) {
-		String currentEmployee = SecurityContextHolder.getContext().getAuthentication().getName();
-
-		boolean needLogout = false;
-		needLogout = empDto.getEmail().equals(currentEmployee);
-		
 		employeeService.saveAndFlush(empDto);
 
-		if (needLogout) {
-			log.info("Employee edited own details, logging out...");
-			return "redirect:/logout";
-		} else {
-			log.info("Information was edited");
-			return "redirect:/registered/all";
-		}
+		log.info("Information was edited");
+		return "redirect:/registered/all";
 	}
-
+	
+	@PreAuthorize("hasRole('ADMIN')")
 	@PostMapping("/delete/{id}")
 	public String postDelete(@PathVariable Long id, @ModelAttribute("user") EmployeeDto empDto) {
 		if (id == null) {

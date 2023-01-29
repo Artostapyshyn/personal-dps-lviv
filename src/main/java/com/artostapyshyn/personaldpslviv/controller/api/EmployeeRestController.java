@@ -6,12 +6,13 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.artostapyshyn.personaldpslviv.exceptions.UserIdIsNotValidException;
+import com.artostapyshyn.personaldpslviv.exceptions.EmployeeIdIsNotValidException;
 import com.artostapyshyn.personaldpslviv.model.entity.Employee;
 import com.artostapyshyn.personaldpslviv.model.service.EmployeeService;
 
@@ -29,6 +30,7 @@ import lombok.extern.log4j.Log4j2;
 @RestController
 @RequestMapping("api/employees")
 @SecurityRequirement(name = "personaldpslviv")
+@PreAuthorize("hasRole('ADMIN')")
 @AllArgsConstructor
 public class EmployeeRestController {
 
@@ -145,7 +147,7 @@ public class EmployeeRestController {
 		Optional<Employee> optionalEmployee = employeeService.findById(id);
 
 		if (optionalEmployee.isEmpty()) {
-			throw new UserIdIsNotValidException(id);
+			throw new EmployeeIdIsNotValidException(id);
 		}
 		answer.put("result", "SUCCESSFUL");
 		answer.put("body", optionalEmployee.get());
@@ -193,7 +195,7 @@ public class EmployeeRestController {
 	ResponseEntity<Map<String, Object>> delete(@PathParam("id") Long id) {
 		Map<String, Object> answer = new HashMap<>();
 		if (id != null)
-			employeeService.findById(id).orElseThrow(() -> new UserIdIsNotValidException(id));
+			employeeService.findById(id).orElseThrow(() -> new EmployeeIdIsNotValidException(id));
 
 		employeeService.deleteById(id);
 		answer.put("result", "SUCCESSFUL");

@@ -27,7 +27,7 @@ public class ExcelSaver {
 	}
 
 	private void writeHeader() {
-		sheet = workbook.createSheet("Fired employees");
+		sheet = workbook.createSheet("Звільнені працівники");
 
 		Row row = sheet.createRow(0);
 		CellStyle style = workbook.createCellStyle();
@@ -38,13 +38,13 @@ public class ExcelSaver {
 		style.setFont(font);
 
 		createCell(row, 0, "№", style);
-		createCell(row, 1, "First name", style);
-		createCell(row, 2, "Last name", style);
-		createCell(row, 3, "Department", style);
-		createCell(row, 4, "Phone number", style);
-		createCell(row, 5, "Birth date", style);
-		createCell(row, 6, "Firing reason", style);
-		createCell(row, 7, "Firing date", style);
+		createCell(row, 1, "Ім'я", style);
+		createCell(row, 2, "Прізвище", style);
+		createCell(row, 3, "Підрозділ", style);
+		createCell(row, 4, "Номер телефону", style);
+		createCell(row, 5, "Дата народження", style);
+		createCell(row, 6, "Причина звільнення", style);
+		createCell(row, 7, "Дата звільнення", style);
 	}
 
 	private void createCell(Row row, int columnCount, Object value, CellStyle style) {

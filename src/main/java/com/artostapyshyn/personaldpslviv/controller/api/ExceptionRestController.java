@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.artostapyshyn.personaldpslviv.exceptions.UserIdIsNotValidException;
-import com.artostapyshyn.personaldpslviv.exceptions.UserNotFoundException;
+import com.artostapyshyn.personaldpslviv.exceptions.EmployeeIdIsNotValidException;
+import com.artostapyshyn.personaldpslviv.exceptions.EmployeeNotFoundException;
 
 import jakarta.security.auth.message.AuthException;
 import lombok.extern.log4j.Log4j2;
@@ -25,14 +25,14 @@ import lombok.extern.log4j.Log4j2;
 @RestControllerAdvice("com.artostapyshyn.personaldpslviv.controller.api")
 public class ExceptionRestController {
 
-	@ExceptionHandler(UserNotFoundException.class)
+	@ExceptionHandler(EmployeeNotFoundException.class)
 	@ResponseStatus(NOT_FOUND)
-	public ResponseEntity<Map<String, Object>> userNotFoundException(UserNotFoundException userNotFoundException) {
+	public ResponseEntity<Map<String, Object>> employeeNotFoundException(EmployeeNotFoundException employeeNotFoundException) {
 		Map<String, Object> answer = new HashMap<>();
-		log.error("Couldn't find user with given email", userNotFoundException);
+		log.error("Couldn't find user with given email", employeeNotFoundException);
 		answer.put("result", "ERROR");
 		answer.put("body", ErrorResponse.builder()
-				.message(userNotFoundException.getMessage())
+				.message(employeeNotFoundException.getMessage())
 				.status(NOT_FOUND)
 				.timestamp(now())
 				.build());
@@ -40,15 +40,15 @@ public class ExceptionRestController {
 		return new ResponseEntity<>(answer, HttpStatus.NOT_FOUND);
 	}
 
-	@ExceptionHandler(UserIdIsNotValidException.class)
+	@ExceptionHandler(EmployeeIdIsNotValidException.class)
 	@ResponseStatus(BAD_REQUEST)
-	public ResponseEntity<Map<String, Object>> userIdIsNotValidException(
-			UserIdIsNotValidException userIdIsNotValidException) {
+	public ResponseEntity<Map<String, Object>> employeeIdIsNotValidException(
+			EmployeeIdIsNotValidException employeeIdIsNotValidException) {
 		Map<String, Object> answer = new HashMap<>();
-		log.error("Couldn't find user with given id", userIdIsNotValidException);
+		log.error("Couldn't find user with given id", employeeIdIsNotValidException);
 		answer.put("result", "ERROR");
 		answer.put("body", ErrorResponse.builder()
-				.message(userIdIsNotValidException.getMessage())
+				.message(employeeIdIsNotValidException.getMessage())
 				.status(BAD_REQUEST)
 				.timestamp(now())
 				.build());

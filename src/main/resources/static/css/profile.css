@@ -32,6 +32,13 @@ body{
     margin-top: 15px;
     margin-right: 20px; 
 }
+
+input {
+	float: right;
+	height: 35px;
+	margin-right: 20px;
+	transform: translateY(-20px);
+}
  
 .main{
     margin-top: 2%;
@@ -62,6 +69,7 @@ body{
     font-size: 16px;
     height: 270px;
     width: 100%;
+    margin-bottom: 50px;
 }
 
 .link_block{

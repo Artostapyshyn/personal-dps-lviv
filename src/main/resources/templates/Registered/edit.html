@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
 
 <head>
 	<meta charset="utf-8">
@@ -59,9 +59,11 @@
 							</div>
 						</div>
 					</form>
+					<div sec:authorize="hasRole('ADMIN')">
 					<form method="post" th:action="@{'/registered/delete/{id}' (id=${user.id})}">
 						<button class="delete-button" type="submit">Видалити</button>
 					</form>
+					</div>
 				</div>
 			</div>
 		</div>
