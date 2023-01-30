@@ -57,7 +57,7 @@ public class EmployeeController {
 		return "redirect:/registered/all";
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
 	@PostMapping("/delete/{id}")
 	public String postDelete(@PathVariable Long id, @ModelAttribute("user") EmployeeDto empDto) {
 		if (id == null) {

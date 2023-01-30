@@ -96,7 +96,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public EmployeeDto findByConfirmationToken(String confirmationToken) {
+	public Employee findByConfirmationToken(String confirmationToken) {
 		return employeeRepository.findByConfirmationToken(confirmationToken);
 	}
 

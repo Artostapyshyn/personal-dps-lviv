@@ -16,7 +16,7 @@ public interface EmployeeService {
 
     List<EmployeeDto> findAll();
     
-    EmployeeDto findByConfirmationToken(String confirmationToken);
+    Employee findByConfirmationToken(String confirmationToken);
 
 	Optional<Employee> findById(Long id);
 	

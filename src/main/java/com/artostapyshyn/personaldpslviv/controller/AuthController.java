@@ -3,6 +3,7 @@ package com.artostapyshyn.personaldpslviv.controller;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -11,7 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.artostapyshyn.personaldpslviv.dto.EmployeeDto;
 import com.artostapyshyn.personaldpslviv.model.Mail;
@@ -82,8 +82,10 @@ public class AuthController {
 			log.warn("Error occured while registrating user");
 			return "registration";
 		}
- 
+		
+		employee.setEnabled(false);
 		employee.setConfirmationToken(UUID.randomUUID().toString());
+		employeeService.saveAndFlush(employee);
 		
 		String appUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
 		 
@@ -97,23 +99,22 @@ public class AuthController {
  
 		log.info("Email has been sent to " + employee.getEmail());
 		
-		employeeService.saveAndFlush(employee);
-		return "confirm";
+		return "confirm-email";
 	}
 	
 	@GetMapping("/confirm")
-	public String confirmRegistration(Model model, @RequestParam String token, @ModelAttribute("user") EmployeeDto employee) {
+	public String confirmRegistration(Model model, @Param("token") String token) {
 
-		employee = employeeService.findByConfirmationToken(token);
+		Employee employee = employeeService.findByConfirmationToken(token);
 		log.info("Employee was found by confirmation token");
 		
-		if (employee == null) {
+	 	if (employee == null) {
 			log.warn("Employee is null");
 			model.addAttribute("user", employee);
 			return "error";
 		}
+		 
 		employee.setEnabled(true);
-		employeeService.saveAndFlush(employee);
 		
 		log.info("Employee was confirmed, permitted to login");
 		return "redirect:/registration?success";

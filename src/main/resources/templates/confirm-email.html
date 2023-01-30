@@ -1,0 +1,24 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<title>Підтвердження</title>
+	<link rel="stylesheet" th:href="@{/css/error-confirm.css}">
+	<link rel="icon" th:href="@{/img/logo.png}" type="image/icon type">
+</head>
+
+<body>
+	<main>
+		<center>
+			<div class="confirm_message">
+				<h1>Ви успішно зареєструвались!</h1>
+				<p>Перейдіть за посиланням надісланим за електронною адресою для підтвердження.</p>
+				<a th:href="@{/registration}">Назад</a>
+			</div>
+		</center>
+	</main>
+</body>
+
+</html>
